@@ -1,0 +1,82 @@
+.wrap{
+    background-color: #076388;
+    width: 100%;
+    height: 100vh;
+    z-index: -1;
+    display: block;
+    text-align: center;
+    font-family: Roboto;
+    color: white;
+}
+
+.wrap img{
+    margin-top: 10%;
+    width: 300px;
+    height: 300px;
+}
+
+.login-content{
+    transform: translateY(-20%);
+}
+.login-content h1{
+    font-family: Acme;
+    font-size: 24px;
+}
+.login-content h2{
+    font-size: 20px;
+}
+
+/* Con esto conseguimos una alineación no destructiva de los elementos del formulario */
+.login-content-row {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 80%;
+    margin: 0 auto 1em auto;
+}
+
+.login-content label {
+    font-size: 18px;
+    margin: 0 0 0.3em 0;
+    text-align: left;
+    width: 100%;
+}
+
+.login-content input {
+    border-radius: 8px;
+    width: 100%;
+    font-size: 20px;
+    border: none;
+    height: 2em;
+    margin-bottom: 0.5em;
+}
+/*  */
+.login-content button {
+  margin: 10px 0;
+  padding: 0.7em;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  width: 80%;
+  text-align: center;
+}
+
+.btnLogin {
+  background-color: #083C78;
+  color: white;
+  border: none;
+  justify-content: center;
+
+}
+
+.btnNuevo {
+  background-color: #C7B545;
+  color: white;
+  justify-content: center;
+  border: none;
+
+}
+
+.buttons-container img{
+    transform: translateX(150px);
+}
