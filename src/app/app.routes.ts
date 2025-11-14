@@ -20,6 +20,10 @@ export const routes: Routes = [
   loadComponent: () => import('./caja/caja.component').then(c => c.CajaComponent)
 }
 ,
+{
+path: 'tab3',
+  loadComponent: () => import('./tab3/tab3.page').then(c => c.Tab3Page)
+},
   {
     path: '**',
     redirectTo: 'login'

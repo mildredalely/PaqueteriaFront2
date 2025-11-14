@@ -1,63 +1,69 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { IonicModule, AlertController } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
-import { IonicModule } from '@ionic/angular';
+
 @Component({
   selector: 'app-caja',
+  standalone: true,
+  imports: [IonicModule, FormsModule],
   templateUrl: './caja.component.html',
-   imports: [IonicModule, FormsModule],
   styleUrls: ['./caja.component.scss'],
 })
-export class CajaComponent  implements OnInit {
+export class CajaComponent implements OnInit {
+
   efectivoCaja: number | null = null;
   totalEsperado: number = 0;
-  correo: string = ''; 
+  correo: string = '';
+  
 
-  constructor(private router: Router) { }
+  constructor(private router: Router,private alertCtrl: AlertController) {}
 
-  ngOnInit() {
-     this.totalEsperado = Number(localStorage.getItem('totalDia')) || 0;
+    ngOnInit() {
+    this.totalEsperado = Number(localStorage.getItem('totalDia')) || 0;
   }
- enviarCorreo() {
+
+  volver() {
+    this.router.navigate(['/tab3']);
+  }
+
+  async cerrarTurno() {
     if (this.efectivoCaja === null) {
-      alert('Por favor ingresa la cantidad en caja.');
-      return;
+      return this.showAlert("Error", "Ingresa el efectivo en caja.");
     }
 
     if (this.efectivoCaja !== this.totalEsperado) {
-      alert('El efectivo no coincide con el total del día.');
-      return;
+      return this.showAlert("Advertencia", "El efectivo no coincide con el total del día.");
     }
 
     if (!this.correo) {
-      alert('Por favor ingresa un correo de destino.');
-      return;
+      return this.showAlert("Error", "Ingresa un correo válido.");
     }
 
-    const datosCorreo = {
-      correo: this.correo,
-      totalDia: this.totalEsperado,
-      efectivoCaja: this.efectivoCaja,
-      mensaje: `Cierre de caja correcto. Total del día: $${this.totalEsperado}.`
-    };
+    const alert = await this.alertCtrl.create({
+      header: "Confirmar envío",
+      message: "¿Deseas enviar el reporte de cierre?",
+      cssClass: "alerto-animado",
+      buttons: [
+        { text: "Cancelar", role: "cancel" },
+        { text: "Enviar", handler: () => this.enviarCorreo() }
+      ]
+    });
 
-   
-    /*this.http.post('http://tu-servidor.com/api/enviar-reporte', datosCorreo)
-      .subscribe({
-        next: () => {
-          alert('Reporte enviado correctamente al correo.');
-          this.router.navigate(['/reporte']);
-        },
-        error: (err) => {
-          console.error('Error al enviar el correo:', err);
-          alert('Ocurrió un error al enviar el correo.');
-        }
-      });*/
+    await alert.present();
   }
 
-  
-  cerrarTurno() {
-    this.enviarCorreo();
+  enviarCorreo() {
+    console.log("Enviando correo...", this.correo);
+    this.showAlert("Éxito", "Reporte enviado correctamente.");
   }
 
+  async showAlert(titulo: string, mensaje: string) {
+    const alert = await this.alertCtrl.create({
+      header: titulo,
+      message: mensaje,
+      buttons: ["OK"]
+    });
+    await alert.present();
+  }
 }
