@@ -1,0 +1,196 @@
+.wrap {
+    background-color: white;
+    width: 100%;
+    height: 100vh;
+    z-index: -1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    font-family: Roboto;
+}
+
+.img1 {
+    translate: 0 -40%;
+}
+
+.wrap h1 {
+    font-size: 34px;
+    text-align: center;
+    color: #AA794E;
+    margin: 0;
+    transform: translateY(-160%);
+}
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    width: 100vw;
+    z-index: 10;
+}
+
+.envio-content {
+    transform: translateY(-20%);
+    z-index: 1;
+    height: 90%;
+    width: 85%;
+    background-color: #F0F0F0;
+    border-radius: 15px;
+}
+
+.envio-content h2 {
+    color: #076388;
+    font-size: 20px;
+    margin-bottom: 0;
+}
+
+.envio-content-row {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 80%;
+    margin: 0 auto .5em auto;
+}
+
+.envio-content-row-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    width: 80%;
+    margin: 0 auto 1em auto;
+}
+
+.envio-content-row-mid {
+    display: inline-block;
+    width: 80%;
+    text-align: left;
+    color: #083C78;
+}
+
+.envio-content-row2 {
+    display: inline-block;
+    width: 35%;
+    text-align: center;
+    color: #083C78;
+    text-align: left;
+    margin: 1em;
+}
+
+.envio-content ion-label {
+    font-size: 18px;
+    margin: 0 0 0.5em 0;
+    text-align: left;
+    width: 100%;
+    color: #083C78;
+}
+
+.envio-content ion-input {
+    border-radius: 8px;
+    width: 100%;
+    font-size: 18px;
+    border: none;
+    height: 2em;
+    background-color: rgba(7, 99, 136, .3);
+}
+
+.envio-content-row-btn ion-button {
+    margin: 10px 0;
+    padding: 0.7em;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: normal;
+    cursor: pointer;
+    width: 80%;
+    text-align: center;
+}
+
+.card_cantainer {
+    display: flex;
+    align-items: center;
+    gap: 1em;
+    width: 90%;
+    height: 45%;
+    margin-top: 0;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    overflow-x: auto;
+    margin-bottom: 1em;
+    margin-left: 1em;
+}
+
+.card_cantainer::-webkit-scrollbar {
+    height: 8px;
+}
+
+.card_cantainer::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+.card_cantainer::-webkit-scrollbar-thumb {
+    background: #076388;
+    border-radius: 4px;
+}
+
+.card_cantainer::-webkit-scrollbar-thumb:hover {
+    background: #083C78;
+}
+
+.card {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 200px;
+    height: 80%;
+    text-align: left;
+    flex: 0 0 auto;
+    margin-left: 0;
+}
+
+.envio-content-row2 ion-select {
+    border-radius: 8px;
+    width: 100%;
+    font-size: 18px;
+    border: none;
+    height: 2em;
+    background-color: rgba(7, 99, 136, .3);
+    color: white;
+}
+
+.envio-content-row2 ion-select-option {
+    border-radius: 8px;
+    width: 100%;
+    font-size: 14px;
+    border: none;
+    height: 1em;
+    --background: rgba(7, 99, 136, .3);
+    --color: white;
+}
+
+.envio-content-row2 ion-button {
+    margin: 10px 0;
+    padding: 0.7em;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: normal;
+    cursor: pointer;
+    width: 100%;
+    text-align: center;
+}
+
+.envio-content h3 {
+    margin: 0;
+}
+
+.line {
+    margin: 0;
+}
+
+.envio-content p{
+    color: #083C78;
+}
+.envio-content h3{
+    color: #083C78;
+}
+

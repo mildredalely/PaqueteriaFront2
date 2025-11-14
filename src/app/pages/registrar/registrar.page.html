@@ -1,13 +1,21 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>registrar</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">registrar</ion-title>
-    </ion-toolbar>
-  </ion-header>
-</ion-content>
+<div class="wrap">
+    <ion-img src="assets/add-user.webp" alt=""></ion-img>
+    <div class="add-content">
+        <h1>REGISTRO DE USUARIO NUEVO</h1>
+        <h2>Rellena los campos para agregar un usuario nuevo</h2>
+        
+        <div class="add-content-row">
+            <ion-label for="">Nombre</ion-label>
+            <ion-input type="text"></ion-input>
+        </div>
+        <div class="add-content-row">
+            <ion-label for="">Nombre de usuario</ion-label>
+            <ion-input type="text"></ion-input>
+        </div>
+        <div class="add-content-row">
+            <ion-label for="">Contraseña</ion-label>
+            <ion-input type="text"></ion-input>
+        </div>
+        <ion-button class="btnAdd" routerLink="/login">Agregar usuario</ion-button>        
+    </div>
+</div>

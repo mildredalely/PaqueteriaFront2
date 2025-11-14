@@ -35,22 +35,22 @@
     margin: 0 auto 1em auto;
 }
 
-.login-content label {
+.login-content ion-label {
     font-size: 18px;
     margin: 0 0 0.3em 0;
     text-align: left;
     width: 100%;
 }
 
-.login-content input {
+.login-content ion-input {
     border-radius: 8px;
     width: 100%;
     font-size: 20px;
-    border: none;
+    background: #ccc;
     height: 2em;
     margin-bottom: 0.5em;
 }
-/*  */
+
 .login-content ion-button {
   margin: 10px 0;
   padding: 0.7em;

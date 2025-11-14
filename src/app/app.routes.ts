@@ -15,6 +15,10 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/registrar/registrar.page').then( m => m.RegistrarPage)
   },
   {
+    path: 'envio-mx',
+    loadComponent: () => import('./tab1/tab1.page').then( m => m.Tab1Page)
+  },
+  {
     path: '**',
     redirectTo: 'login'
   }
