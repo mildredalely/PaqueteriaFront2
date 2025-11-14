@@ -1,0 +1,38 @@
+<div class="caja-container">
+
+  <!-- OLA SUPERIOR -->
+  <div class="wave-top">
+    <svg viewBox="0 0 1440 200" preserveAspectRatio="none">
+      <path d="M0,80 C360,160 360,0 720,80 C1080,160 1080,0 1440,80 L1440,0 L0,0 Z" fill="#126e9a"/>
+    </svg>
+  </div>
+
+  <!-- CARD CENTRADA -->
+  <div class="card caja-card text-center">
+
+    <h4 class="titulo">CIERRE DE CAJA</h4>
+
+    <div class="card-body">
+
+      <label class="form-label">TOTAL ESPERADO</label>
+      <input type="number" [value]="totalEsperado" readonly class="form-control-custom">
+
+      <label class="form-label mt-3">EFECTIVO EN CAJA</label>
+      <input type="number" [(ngModel)]="efectivoCaja" placeholder="Ingresa la cantidad" class="form-control-custom">
+
+      <label class="form-label mt-3">CORREO DESTINO</label>
+      <input type="email" [(ngModel)]="correo" placeholder="ejemplo@correo.com" class="form-control-custom">
+
+      <button class="btn-enviar mt-4" (click)="enviarCorreo()">Enviar reporte</button>
+
+    </div>
+  </div>
+
+  <!-- OLA INFERIOR -->
+  <div class="wave-bottom">
+    <svg viewBox="0 0 1440 200" preserveAspectRatio="none">
+      <path d="M0,120 C360,0 360,240 720,120 C1080,0 1080,240 1440,120 L1440,240 L0,240 Z" fill="#126e9a"/>
+    </svg>
+  </div>
+
+</div>
