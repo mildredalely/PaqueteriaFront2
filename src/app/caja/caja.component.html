@@ -1,0 +1,60 @@
+<div class="pantalla-ajustada">
+
+  <!-- Botón de regresar -->
+  <ion-button fill="clear" class="btn-regresar" (click)="volver()">
+    <ion-icon name="arrow-back-circle-outline"></ion-icon>
+  </ion-button>
+
+  <!-- OLA SUPERIOR -->
+  <div class="ola-superior">
+    <svg viewBox="0 0 500 150" preserveAspectRatio="none">
+      <path d="M-1.41,47.61 C149.99,150.00 271.52,-49.98 500.00,49.99 L500.00,0.00 L0.00,0.00 Z"></path>
+    </svg>
+  </div>
+
+  <!-- CARD PRINCIPAL -->
+  <div class="reporte-card">
+    <h2 class="titulo">CIERRE DE CAJA</h2>
+
+    <p class="subtitulo">Validación del turno</p>
+
+    <div class="turno-box">
+      <div class="turno-titulo">Datos de cierre</div>
+
+      <div class="turno-info">
+
+        <!-- Total esperado -->
+        <p class="label">Total esperado</p>
+        <p class="valor">${{ totalEsperado }}</p>
+
+        <!-- Cantidad en caja -->
+        <div class="fila-input">
+          <label class="label">Efectivo en caja</label>
+          <input type="number" [(ngModel)]="efectivoCaja" class="input-caja" placeholder="Ingresa efectivo">
+        </div>
+
+        <!-- Correo -->
+        <div class="fila-input">
+          <label class="label">Correo para enviar reporte</label>
+          <input type="email" [(ngModel)]="correo" class="input-caja" placeholder="correo@ejemplo.com">
+        </div>
+
+        <!-- Botón enviar -->
+        <div class="btn-imprimir-container">
+          <ion-button color="primary" shape="round" size="small" (click)="cerrarTurno()">
+            Enviar reporte
+          </ion-button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- OLA INFERIOR -->
+  <div class="ola-inferior">
+    <svg viewBox="0 0 500 150" preserveAspectRatio="none">
+      <path d="M-1.41,47.61 C149.99,150.00 271.52,-49.98 500.00,49.99 L500.00,150.00 L0.00,150.00 Z"></path>
+    </svg>
+  </div>
+
+</div>

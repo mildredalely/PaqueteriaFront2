@@ -1,0 +1,111 @@
+.pantalla-ajustada {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: #f0f8ff;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Botón regresar */
+.btn-regresar {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 50;
+  --color: #0e6ba8;
+  font-size: 28px;
+}
+
+/* Olas */
+.ola-superior svg,
+.ola-inferior svg {
+  width: 100%;
+  height: 150px;
+}
+
+.ola-superior path,
+.ola-inferior path {
+  fill: #0e6ba8;
+}
+
+/* CARD */
+.reporte-card {
+  background: white;
+  margin: -15px 20px 0 20px;
+  padding: 15px;
+  border-radius: 18px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+  transform: scale(0.92);
+}
+
+.titulo {
+  text-align: center;
+  color: #0e6ba8;
+  font-weight: 700;
+  font-size: 20px;
+}
+
+.subtitulo {
+  margin-top: 5px;
+  color: #0b4f73;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* Caja de datos */
+.turno-box {
+  margin-top: 12px;
+  background: #d6ecff;
+  border-radius: 15px;
+  padding-bottom: 10px;
+}
+
+.turno-titulo {
+  background: #0e6ba8;
+  color: white;
+  padding: 6px 10px;
+  width: 55%;
+  margin: 0 auto;
+  border-radius: 12px;
+  font-weight: 600;
+  text-align: center;
+  margin-top: -10px;
+}
+
+.turno-info {
+  padding: 12px;
+}
+
+.label {
+  font-size: 13px;
+  color: #0b4f73;
+}
+
+.valor {
+  font-weight: 600;
+  font-size: 16px;
+  color: #064a70;
+  margin-bottom: 10px;
+}
+
+.fila-input {
+  margin-top: 10px;
+}
+
+.input-caja {
+  width: 100%;
+  padding: 10px;
+  border-radius: 12px;
+  border: 1px solid #9acaf2;
+  background: #ffffff;
+  font-size: 14px;
+  margin-top: 4px;
+}
+
+.btn-imprimir-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 12px;
+}
