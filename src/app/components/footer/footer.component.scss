@@ -1,0 +1,22 @@
+.footer {
+  position: relative;
+  bottom: 0;
+  transform: translateY(4px);
+  padding-bottom: 0;
+  width: 100vw;
+  z-index: 1;
+}
+.footer-content{
+    position: relative;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    margin-top: -48px;
+}
+.footer-content img{
+    margin: 0 40px 4px 40px;
+    width: 32px;
+    height: 32px;
+}
