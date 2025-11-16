@@ -1,4 +1,7 @@
 import { Routes } from '@angular/router';
+import { RegistrarPage } from './pages/registrar/registrar.page';
+import { Tab1Page } from './tab1/tab1.page';
+import { LoginPage } from './pages/login/login.page';
 
 export const routes: Routes = [
   {
@@ -8,15 +11,15 @@ export const routes: Routes = [
   },
   {
     path: 'login',
-    loadComponent: () => import('./pages/login/login.page').then( m => m.LoginPage)
+    component: LoginPage
   },
   {
     path: 'nuevo',
-    loadComponent: () => import('./pages/registrar/registrar.page').then( m => m.RegistrarPage)
+    component: RegistrarPage
   },
   {
     path: 'envio-mx',
-    loadComponent: () => import('./tab1/tab1.page').then( m => m.Tab1Page)
+    component: Tab1Page
   },
   {
     path: '**',
