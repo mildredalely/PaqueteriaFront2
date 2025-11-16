@@ -1,0 +1,178 @@
+.historial-container {
+  position: relative;
+  padding: 100px 20px 100px 20px;
+  background: linear-gradient(to bottom, #e0f7fa, #ffffff);
+  font-family: 'Segoe UI', sans-serif;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+.titulo {
+  text-align: center;
+  color: #004d7a;
+  font-size: 24px;
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 1;
+}
+
+.carrusel {
+  display: flex;
+  overflow-x: auto;
+  gap: 16px;
+  padding: 10px;
+  scroll-snap-type: x mandatory;
+  position: relative;
+  z-index: 1;
+}
+
+.tarjeta-envio {
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  padding: 16px;
+  padding-bottom: 55px; 
+  min-width: 100px; 
+  max-width: 200px; 
+  min-height: 300px; 
+  position: relative; 
+}
+
+.tarjeta-envio h2 {
+  color: #004d7a;
+  font-size: 18px;
+  margin-bottom: 12px;
+  text-align: center; 
+}
+
+.tarjeta-envio p {
+  margin: 10px 0;
+  font-size: 14px;
+  color: #333;
+  line-height: 1.6; 
+}
+
+.fecha {
+  color: #888;
+  font-size: 13px;
+}
+
+.estado.completado {
+  color: #10b981; 
+  font-weight: bold;
+  margin-top: 12px;
+}
+
+.btn-ver {
+  background-color: #004d7a;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  transition: background-color 0.3s;
+  position: absolute; /* Posición absoluta */
+  bottom: 12px; /* Esquina inferior */
+  right: 12px; /* Esquina derecha */
+}
+
+.btn-ver:hover {
+  background-color: #003d5c;
+}
+
+.fondo-decorativo-top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100px;
+  background-color: #0088aa;
+  z-index: 0;
+}
+
+.fondo-decorativo-top::before {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: 50px;
+  background-color: #e0f7fa;
+  border-radius: 100% 100% 0 0 / 50px 50px 0 0;
+}
+
+.fondo-decorativo-top::after {
+  content: '';
+  position: absolute;
+  bottom: 5px;
+  left: 5%;
+  width: 20%;
+  height: 35px;
+  background-color: #e0f7fa;
+  border-radius: 50%;
+  box-shadow: 
+    150px -5px 0 -5px #e0f7fa,
+    300px 0px 0 -3px #e0f7fa,
+    450px -3px 0 -7px #e0f7fa;
+}
+
+
+.fondo-decorativo-bottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100px;
+  background-color: #0088aa;
+  z-index: 0;
+}
+
+.fondo-decorativo-bottom::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: 0;
+  width: 100%;
+  height: 50px;
+  background-color: #ffffff;
+  border-radius: 0 0 100% 100% / 0 0 50px 50px;
+}
+
+.fondo-decorativo-bottom::after {
+  content: '';
+  position: absolute;
+  top: 5px;
+  left: 8%;
+  width: 18%;
+  height: 35px;
+  background-color: #ffffff;
+  border-radius: 50%;
+  box-shadow: 
+    160px 3px 0 -4px #ffffff,
+    320px -2px 0 -6px #ffffff,
+    480px 5px 0 -5px #ffffff;
+}
+
+/* Ocultar scrollbar pero mantener funcionalidad */
+.carrusel::-webkit-scrollbar {
+  height: 8px;
+}
+
+.carrusel::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.carrusel::-webkit-scrollbar-thumb {
+  background: #0088aa;
+  border-radius: 10px;
+}
+
+.carrusel::-webkit-scrollbar-thumb:hover {
+  background: #006688;
+}
