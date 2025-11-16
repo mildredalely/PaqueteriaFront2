@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
-  imports: [IonApp, IonRouterOutlet, FormsModule],
+  imports: [IonApp, IonRouterOutlet, FormsModule, ],
 })
 export class AppComponent {
   constructor() {}
