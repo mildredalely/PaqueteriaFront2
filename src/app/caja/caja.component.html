@@ -11,7 +11,11 @@
       <path d="M-1.41,47.61 C149.99,150.00 271.52,-49.98 500.00,49.99 L500.00,0.00 L0.00,0.00 Z"></path>
     </svg>
   </div>
-
+   <!-- Botón de regresar -->
+  <ion-button fill="clear" class="btn-regresar" (click)="volver()">
+    <ion-icon name="arrow-back-circle-outline"></ion-icon>
+  </ion-button>
+  
   <!-- CARD PRINCIPAL -->
   <div class="reporte-card">
     <h2 class="titulo">CIERRE DE CAJA</h2>
@@ -50,11 +54,6 @@
     </div>
   </div>
 
-  <!-- OLA INFERIOR -->
-  <div class="ola-inferior">
-    <svg viewBox="0 0 500 150" preserveAspectRatio="none">
-      <path d="M-1.41,47.61 C149.99,150.00 271.52,-49.98 500.00,49.99 L500.00,150.00 L0.00,150.00 Z"></path>
-    </svg>
-  </div>
+  <app-footer></app-footer>
 
 </div>

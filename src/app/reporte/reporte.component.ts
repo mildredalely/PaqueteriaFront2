@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { IonHeader, IonCardContent, IonCardTitle, IonContent, IonToolbar } from "@ionic/angular/standalone";
 import {  CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
-import { FooterComponent } from '../components/footer/footer.component';
 @Component({
   selector: 'app-reporte',
   templateUrl: './reporte.component.html',
