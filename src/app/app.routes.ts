@@ -15,8 +15,17 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/registrar/registrar.page').then( m => m.RegistrarPage)
   },
   {
+  path: 'historial',
+  loadComponent: () => import('./pages/historial/historial.page').then(m => m.HistorialPage)
+  },
+  {
     path: '**',
     redirectTo: 'login'
+  },
+  {
+    path: 'historial',
+    loadComponent: () => import('./pages/historial/historial.page').then( m => m.HistorialPage)
   }
+
 
 ];

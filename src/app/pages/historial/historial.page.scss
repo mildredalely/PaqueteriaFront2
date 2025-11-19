@@ -1,0 +1,159 @@
+/* NOTA: Debes importar la fuente 'Montserrat' en tu index.html para que funcione
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+*/
+
+/* Estilos del contenedor principal (ion-content) */
+ion-content {
+  --background: linear-gradient(to bottom, #e0f7fa, #ffffff);
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* 1. Título Centrado y Bonito (ion-title) */
+ion-title {
+  color: #004d7a;
+  font-size: 28px; 
+  font-weight: bold; 
+  font-family: 'Montserrat', sans-serif;
+  text-align: center;
+}
+
+/* Estilo para el título grande (colapsado) */
+ion-header[collapse="condense"] ion-title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 36px;
+  font-weight: bold;
+}
+
+
+/* Simulación del Carrusel (div.carrusel-tarjetas) */
+.carrusel-tarjetas {
+  display: flex;
+  overflow-x: auto;
+  gap: 16px;
+  padding: 10px;
+  scroll-snap-type: x mandatory;
+  position: relative;
+  z-index: 1;
+  -ms-overflow-style: none;  
+  scrollbar-width: none;  
+}
+.carrusel-tarjetas::-webkit-scrollbar {
+  display: none;
+}
+
+/* 2. Tarjeta (ion-card) que Ocupe Más Espacio Hacia Abajo */
+ion-card {
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  min-width: 100px; 
+  max-width: 250px; 
+  min-height: 380px; // Altura aumentada
+  position: relative; 
+  --background: #ffffff;
+
+  ion-card-content {
+    // Aseguramos espacio para el botón
+    padding-bottom: 65px; 
+  }
+}
+
+/* Estilos de los encabezados y contenido de la tarjeta */
+ion-card-title {
+  color: #004d7a;
+  font-size: 18px;
+  margin-bottom: 5px; 
+  text-align: center; 
+}
+
+ion-card-subtitle {
+  color: #888;
+  font-size: 13px;
+  text-align: center;
+}
+
+ion-card-content p {
+  margin: 10px 0;
+  font-size: 14px;
+  color: #333;
+  line-height: 1.6;
+}
+
+/* Estilos de Estado */
+.estado-envio {
+  font-weight: bold;
+  margin-top: 12px;
+}
+.estado-completado {
+  color: #10b981; 
+}
+.estado-en-proceso {
+  color: #0088aa; 
+}
+.estado-pendiente {
+  color: #ffc409; 
+}
+
+/* Estilos del Botón (ion-button) */
+ion-card ion-button {
+  --background: #004d7a;
+  --background-hover: #003d5c;
+  --color: white;
+  --border-radius: 20px;
+  
+  // Posición absoluta ajustada a la nueva altura
+  position: absolute;
+  bottom: 15px; 
+  right: 15px;
+  height: 40px; 
+  font-size: 15px;
+  padding: 0 18px;
+}
+
+/* Estilos Decorativos (Mantienen la estructura original) */
+.fondo-decorativo-top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100px;
+  background-color: #0088aa;
+  z-index: 0;
+}
+.fondo-decorativo-top::before {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: 50px;
+  background-color: #e0f7fa;
+  border-radius: 100% 100% 0 0 / 50px 50px 0 0;
+}
+.fondo-decorativo-top::after {
+  // ... (otros estilos de fondo)
+}
+
+.fondo-decorativo-bottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100px;
+  background-color: #0088aa;
+  z-index: 0;
+}
+.fondo-decorativo-bottom::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: 0;
+  width: 100%;
+  height: 50px;
+  background-color: #ffffff;
+  border-radius: 0 0 100% 100% / 0 0 50px 50px;
+}
+.fondo-decorativo-bottom::after {
+  // ... (otros estilos de fondo)
+}
