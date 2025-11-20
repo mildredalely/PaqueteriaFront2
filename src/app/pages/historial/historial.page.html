@@ -1,0 +1,42 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>HISTORIAL DE ENVÍOS</ion-title> 
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">HISTORIAL DE ENVÍOS</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <div class="fondo-decorativo-top"></div>
+  <div class="fondo-decorativo-bottom"></div>
+
+  <div class="carrusel-tarjetas">
+    
+    <ion-card *ngFor="let envio of envios; let i = index">
+      
+      <ion-card-header>
+        <ion-card-title>Envío {{ i + 1 }}</ion-card-title>
+        <ion-card-subtitle class="fecha">{{ envio.fecha }}</ion-card-subtitle>
+      </ion-card-header>
+
+      <ion-card-content>
+        <p><strong>Remitente:</strong> {{ envio.remitente.nombre }}, {{ envio.remitente.direccion }}</p>
+        <p><strong>Destinatario:</strong> {{ envio.destinatario.nombre }}, {{ envio.destinatario.direccion }}</p>
+        
+        <p class="estado-envio estado-{{ envio.estado | lowercase }}">{{ envio.estado }}</p>
+        <ion-button (click)="verEnvio(i)" class="btn-ver-ionic">
+          Ver
+        </ion-button>
+      </ion-card-content>
+
+    </ion-card>
+  </div>
+  
+  <router-outlet></router-outlet>
+  
+</ion-content>

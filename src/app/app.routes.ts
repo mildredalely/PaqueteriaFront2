@@ -32,7 +32,17 @@ export const routes: Routes = [
     component: Tab3Page
   },
   {
+  path: 'historial',
+  loadComponent: () => import('./pages/historial/historial.page').then(m => m.HistorialPage)
+  },
+  {
     path: '**',
     redirectTo: 'login'
+  },
+  {
+    path: 'historial',
+    loadComponent: () => import('./pages/historial/historial.page').then( m => m.HistorialPage)
   }
+
+
 ];

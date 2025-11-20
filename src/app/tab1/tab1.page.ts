@@ -1,3 +1,5 @@
+// src/app/tab1/tab1.page.ts
+
 import { Component } from '@angular/core';
 import { IonImg, IonLabel, IonInput, IonButton, IonSelect, IonSelectOption } from '@ionic/angular/standalone';
 import { FooterComponent } from '../components/footer/footer.component';
