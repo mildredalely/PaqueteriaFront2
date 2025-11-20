@@ -1,42 +1,87 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>HISTORIAL DE ENVÍOS</ion-title> 
-  </ion-toolbar>
-</ion-header>
+<ion-content [fullscreen]="true">
+  <div class="historial-container">
+    <!-- Olas decorativas superiores -->
+    <div class="wave-top">
+      <svg viewBox="0 0 1200 150" preserveAspectRatio="none">
+        <path d="M0,50 Q300,0 600,50 T1200,50 L1200,0 L0,0 Z" fill="#0B6C8C"/>
+      </svg>
+    </div>
 
-<ion-content [fullscreen]="true" class="ion-padding">
-  
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">HISTORIAL DE ENVÍOS</ion-title>
-    </ion-toolbar>
-  </ion-header>
+    <!-- Título -->
+    <div class="header-content">
+      <h1 class="title">HISTORIAL</h1>
+    </div>
 
-  <div class="fondo-decorativo-top"></div>
-  <div class="fondo-decorativo-bottom"></div>
+    <!-- Carrusel de envíos -->
+    <div class="carousel-container">
+      <!-- Botón anterior -->
+      <button class="carousel-btn prev-btn" (click)="prevSlide()" [disabled]="currentIndex === 0">
+        <ion-icon name="chevron-back-outline"></ion-icon>
+      </button>
 
-  <div class="carrusel-tarjetas">
-    
-    <ion-card *ngFor="let envio of envios; let i = index">
-      
-      <ion-card-header>
-        <ion-card-title>Envío {{ i + 1 }}</ion-card-title>
-        <ion-card-subtitle class="fecha">{{ envio.fecha }}</ion-card-subtitle>
-      </ion-card-header>
+      <!-- Contenedor de slides -->
+      <div class="carousel-wrapper">
+        <div class="carousel-track" [style.transform]="'translateX(-' + (currentIndex * 100) + '%)'">
+          <div class="carousel-slide" *ngFor="let envio of envios; let i = index">
+            <div class="envio-card">
+              <div class="card-header">
+                <h2>{{ envio.numero }}</h2>
+                <p class="fecha">{{ envio.fecha }}</p>
+              </div>
 
-      <ion-card-content>
-        <p><strong>Remitente:</strong> {{ envio.remitente.nombre }}, {{ envio.remitente.direccion }}</p>
-        <p><strong>Destinatario:</strong> {{ envio.destinatario.nombre }}, {{ envio.destinatario.direccion }}</p>
-        
-        <p class="estado-envio estado-{{ envio.estado | lowercase }}">{{ envio.estado }}</p>
-        <ion-button (click)="verEnvio(i)" class="btn-ver-ionic">
-          Ver
-        </ion-button>
-      </ion-card-content>
+              <div class="card-body">
+                <div class="info-section">
+                  <label>Remitente</label>
+                  <p class="info-text">{{ envio.remitente }}</p>
+                </div>
 
-    </ion-card>
+                <div class="info-section">
+                  <label>Destinatario</label>
+                  <p class="info-text">{{ envio.destinatario }}</p>
+                </div>
+
+                <!-- Botón de estado -->
+                <button 
+                  class="estado-button" 
+                  [ngClass]="'estado-' + envio.estado">
+                  <ion-icon name="checkmark-circle-outline"></ion-icon>
+                  {{ getEstadoTexto(envio.estado) }}
+                </button>
+
+                <!-- Nuevo botón Ver Detalles -->
+                <button 
+                  class="ver-detalles-button" 
+                  (click)="verDetalle(envio)">
+                  <ion-icon name="eye-outline"></ion-icon>
+                  Ver Detalles
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Botón siguiente -->
+      <button class="carousel-btn next-btn" (click)="nextSlide()" [disabled]="currentIndex === envios.length - 1">
+        <ion-icon name="chevron-forward-outline"></ion-icon>
+      </button>
+    </div>
+
+    <!-- Indicadores de puntos -->
+    <div class="carousel-indicators">
+      <span 
+        *ngFor="let envio of envios; let i = index" 
+        class="indicator-dot" 
+        [class.active]="i === currentIndex"
+        (click)="goToSlide(i)">
+      </span>
+    </div>
+
+    <!-- Olas decorativas inferiores -->
+    <div class="wave-bottom">
+      <svg viewBox="0 0 1200 150" preserveAspectRatio="none">
+        <path d="M0,100 Q300,50 600,100 T1200,100 L1200,150 L0,150 Z" fill="#0B6C8C"/>
+      </svg>
+    </div>
   </div>
-  
-  <router-outlet></router-outlet>
-  
 </ion-content>

@@ -1,38 +1,14 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { Router, RouterOutlet } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { IonicModule } from '@ionic/angular';
+import { Router } from '@angular/router';
 
-// Importa TODOS los componentes de Ionic que usas en la plantilla
-import { 
-  IonContent, 
-  IonHeader, 
-  IonTitle, 
-  IonToolbar,
-  IonCard, 
-  IonCardHeader, 
-  IonCardTitle, 
-  IonCardSubtitle, 
-  IonCardContent, 
-  IonButton 
-} from '@ionic/angular/standalone';
 interface Envio {
+  numero: string;
   fecha: string;
-  remitente: {
-    nombre: string;
-    direccion: string;
-  };
-  destinatario: {
-    nombre: string;
-    direccion: string;
-  };
-  estado: string;
-  productos?: {
-    nombre: string;
-    cantidad: number;
-    peso: number;
-    fragil: boolean;
-  }[];
+  remitente: string;
+  destinatario: string;
+  estado: 'recibido' | 'enviado' | 'en-transito' | 'completado';
 }
 
 @Component({
@@ -40,77 +16,75 @@ interface Envio {
   templateUrl: './historial.page.html',
   styleUrls: ['./historial.page.scss'],
   standalone: true,
-  imports: [
-    IonContent, 
-    IonHeader, 
-    IonTitle, 
-    IonToolbar, 
-    IonCard, 
-    IonCardHeader, 
-    IonCardTitle, 
-    IonCardSubtitle, 
-    IonCardContent, 
-    IonButton, 
-    CommonModule, 
-    FormsModule, 
-    RouterOutlet,
-    // ReplacePipe // Descomentar si usas un pipe personalizado para limpiar el estado
-  ]
+  imports: [CommonModule, IonicModule]
 })
 export class HistorialPage implements OnInit {
-  router = inject(Router);
+
+  currentIndex = 0;
 
   envios: Envio[] = [
     {
-      fecha: '25/sep/2023',
-      remitente: {
-        nombre: 'José Luis Gandarillas',
-        direccion: 'Porfirio Díaz #24, San Pablo Huixtepec'
-      },
-      destinatario: {
-        nombre: 'Miriam Belén Santiago',
-        direccion: 'Alguna dirección de EU, Texas'
-      },
-      estado: 'Completado',
-      productos: [
-        { nombre: 'Producto 1', cantidad: 8, peso: 4, fragil: true },
-        { nombre: 'Producto 2', cantidad: 2, peso: 1, fragil: false }
-      ]
+      numero: 'Envío 1',
+      fecha: '25/sep/2025',
+      remitente: 'José Luis Gardenillas\nPorfirio Díaz #24\nSan Pablo Huixtepec',
+      destinatario: 'Miriam Belén Santiago\nAlguna dirección de EU\nTexas',
+      estado: 'completado'
     },
     {
-      fecha: '10/oct/2023',
-      remitente: {
-        nombre: 'María González López',
-        direccion: 'Av. Juárez #156, Centro, Oaxaca'
-      },
-      destinatario: {
-        nombre: 'Carlos Ramírez Torres',
-        direccion: '123 Main Street, Los Angeles, California'
-      },
-      estado: 'En Proceso' 
+      numero: 'Envío 2',
+      fecha: '20/oct/2025',
+      remitente: 'María González\nReforma #123\nOaxaca Centro',
+      destinatario: 'Carlos Méndez\nMain Street 456\nCalifornia',
+      estado: 'en-transito'
     },
     {
-      fecha: '15/oct/2023',
-      remitente: {
-        nombre: 'Pedro Martínez Ruiz',
-        direccion: 'Calle Morelos #89, Tlaxiaco, Oaxaca'
-      },
-      destinatario: {
-        nombre: 'Ana Patricia Hernández',
-        direccion: '456 Oak Avenue, Chicago, Illinois'
-      },
-      estado: 'Pendiente' 
+      numero: 'Envío 3',
+      fecha: '15/oct/2025',
+      remitente: 'Pedro Martínez\nIndependencia #89\nZaachila',
+      destinatario: 'Ana López\nBroadway 789\nNueva York',
+      estado: 'enviado'
     }
   ];
 
-  verEnvio(index: number) {
-    // La práctica recomendada es pasar el ID del envío, no el array completo por localStorage
-    localStorage.setItem('envios', JSON.stringify(this.envios)); // temporal
-    this.router.navigate(['/detalle', index]);
-  }
-
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
+  }
+
+  nextSlide() {
+    if (this.currentIndex < this.envios.length - 1) {
+      this.currentIndex++;
+    }
+  }
+
+  prevSlide() {
+    if (this.currentIndex > 0) {
+      this.currentIndex--;
+    }
+  }
+
+  goToSlide(index: number) {
+    this.currentIndex = index;
+  }
+
+  getEstadoTexto(estado: string): string {
+    const estados: { [key: string]: string } = {
+      'recibido': 'Recibido',
+      'enviado': 'Enviado',
+      'en-transito': 'En Tránsito',
+      'completado': 'Completado'
+    };
+    return estados[estado] || estado;
+  }
+
+  getEstadoClass(estado: string): string {
+    return `estado-${estado}`;
+  }
+
+  verDetalle(envio: Envio) {
+    // Navegar a la página de detalles pasando el objeto envio como parámetro
+    this.router.navigate(['/detalle-historial'], { 
+      state: { envio: envio } 
+    });
   }
 }
