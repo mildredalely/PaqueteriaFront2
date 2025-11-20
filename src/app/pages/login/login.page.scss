@@ -35,46 +35,45 @@
     margin: 0 auto 1em auto;
 }
 
-.login-content label {
+.login-content ion-label {
     font-size: 18px;
     margin: 0 0 0.3em 0;
     text-align: left;
     width: 100%;
 }
 
-.login-content input {
+.login-content ion-input {
     border-radius: 8px;
     width: 100%;
     font-size: 20px;
-    border: none;
+    background: #ccc;
     height: 2em;
     margin-bottom: 0.5em;
 }
-/*  */
-.login-content button {
+
+.login-content ion-button {
   margin: 10px 0;
   padding: 0.7em;
-  border-radius: 8px;
+  border-radius: 10px;
   font-size: 16px;
+  font-weight: normal;
   cursor: pointer;
   width: 80%;
   text-align: center;
 }
 
 .btnLogin {
-  background-color: #083C78;
-  color: white;
+  --background: #083C78;
+  --color: white;
   border: none;
   justify-content: center;
-
 }
 
 .btnNuevo {
-  background-color: #C7B545;
-  color: white;
+  --background: #C7B545; 
+  --color: white;
   justify-content: center;
   border: none;
-
 }
 
 .buttons-container img{
