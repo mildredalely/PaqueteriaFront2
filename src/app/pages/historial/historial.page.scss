@@ -1,159 +1,331 @@
-/* NOTA: Debes importar la fuente 'Montserrat' en tu index.html para que funcione
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-*/
-
-/* Estilos del contenedor principal (ion-content) */
-ion-content {
-  --background: linear-gradient(to bottom, #e0f7fa, #ffffff);
-  font-family: 'Segoe UI', sans-serif;
-}
-
-/* 1. Título Centrado y Bonito (ion-title) */
-ion-title {
-  color: #004d7a;
-  font-size: 28px; 
-  font-weight: bold; 
-  font-family: 'Montserrat', sans-serif;
-  text-align: center;
-}
-
-/* Estilo para el título grande (colapsado) */
-ion-header[collapse="condense"] ion-title {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 36px;
-  font-weight: bold;
-}
-
-
-/* Simulación del Carrusel (div.carrusel-tarjetas) */
-.carrusel-tarjetas {
-  display: flex;
-  overflow-x: auto;
-  gap: 16px;
-  padding: 10px;
-  scroll-snap-type: x mandatory;
+.historial-container {
+  height: 100%;
+  background: linear-gradient(180deg, #FFFFFF 0%, #F8F9FA 100%);
   position: relative;
-  z-index: 1;
-  -ms-overflow-style: none;  
-  scrollbar-width: none;  
-}
-.carrusel-tarjetas::-webkit-scrollbar {
-  display: none;
+  display: flex;
+  flex-direction: column;
 }
 
-/* 2. Tarjeta (ion-card) que Ocupe Más Espacio Hacia Abajo */
-ion-card {
-  flex: 0 0 auto;
-  scroll-snap-align: start;
-  border-radius: 12px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  min-width: 100px; 
-  max-width: 250px; 
-  min-height: 380px; // Altura aumentada
-  position: relative; 
-  --background: #ffffff;
-
-  ion-card-content {
-    // Aseguramos espacio para el botón
-    padding-bottom: 65px; 
-  }
-}
-
-/* Estilos de los encabezados y contenido de la tarjeta */
-ion-card-title {
-  color: #004d7a;
-  font-size: 18px;
-  margin-bottom: 5px; 
-  text-align: center; 
-}
-
-ion-card-subtitle {
-  color: #888;
-  font-size: 13px;
-  text-align: center;
-}
-
-ion-card-content p {
-  margin: 10px 0;
-  font-size: 14px;
-  color: #333;
-  line-height: 1.6;
-}
-
-/* Estilos de Estado */
-.estado-envio {
-  font-weight: bold;
-  margin-top: 12px;
-}
-.estado-completado {
-  color: #10b981; 
-}
-.estado-en-proceso {
-  color: #0088aa; 
-}
-.estado-pendiente {
-  color: #ffc409; 
-}
-
-/* Estilos del Botón (ion-button) */
-ion-card ion-button {
-  --background: #004d7a;
-  --background-hover: #003d5c;
-  --color: white;
-  --border-radius: 20px;
-  
-  // Posición absoluta ajustada a la nueva altura
-  position: absolute;
-  bottom: 15px; 
-  right: 15px;
-  height: 40px; 
-  font-size: 15px;
-  padding: 0 18px;
-}
-
-/* Estilos Decorativos (Mantienen la estructura original) */
-.fondo-decorativo-top {
+// Olas decorativas
+.wave-top {
   position: absolute;
   top: 0;
   left: 0;
-  right: 0;
-  height: 100px;
-  background-color: #0088aa;
-  z-index: 0;
-}
-.fondo-decorativo-top::before {
-  content: '';
-  position: absolute;
-  bottom: -1px;
-  left: 0;
   width: 100%;
-  height: 50px;
-  background-color: #e0f7fa;
-  border-radius: 100% 100% 0 0 / 50px 50px 0 0;
-}
-.fondo-decorativo-top::after {
-  // ... (otros estilos de fondo)
+  z-index: 1;
+  
+  svg {
+    width: 100%;
+    height: 150px;
+    display: block;
+  }
 }
 
-.fondo-decorativo-bottom {
-  position: absolute;
+.wave-bottom {
+  position: fixed;
   bottom: 0;
   left: 0;
-  right: 0;
-  height: 100px;
-  background-color: #0088aa;
-  z-index: 0;
-}
-.fondo-decorativo-bottom::before {
-  content: '';
-  position: absolute;
-  top: -1px;
-  left: 0;
   width: 100%;
-  height: 50px;
-  background-color: #ffffff;
-  border-radius: 0 0 100% 100% / 0 0 50px 50px;
+  z-index: 1;
+  
+  svg {
+    width: 100%;
+    height: 180px;
+    display: block;
+  }
 }
-.fondo-decorativo-bottom::after {
-  // ... (otros estilos de fondo)
+
+// Header
+.header-content {
+  position: relative;
+  z-index: 2;
+  padding-top: 80px;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.title {
+  font-size: 32px;
+  font-weight: bold;
+  color: #0B6C8C;
+  text-shadow: 1px 1px 3px rgba(200, 200, 200, 0.5);
+  margin: 0;
+  letter-spacing: 2px;
+}
+
+// Carrusel CSS
+.carousel-container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 2;
+  padding: 20px 10px;
+  max-height: 500px;
+}
+
+.carousel-wrapper {
+  width: 100%;
+  max-width: 350px;
+  overflow: hidden;
+  position: relative;
+}
+
+.carousel-track {
+  display: flex;
+  transition: transform 0.4s ease-in-out;
+}
+
+.carousel-slide {
+  min-width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 10px;
+}
+
+// Botones de navegación
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(11, 108, 140, 0.8);
+  border: none;
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.3s ease;
+  
+  ion-icon {
+    font-size: 28px;
+    color: #FFFFFF;
+  }
+  
+  &:active {
+    transform: translateY(-50%) scale(0.95);
+  }
+  
+  &:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
+  
+  &:not(:disabled):hover {
+    background: rgba(11, 108, 140, 1);
+    transform: translateY(-50%) scale(1.05);
+  }
+}
+
+.prev-btn {
+  left: 10px;
+}
+
+.next-btn {
+  right: 10px;
+}
+
+// Indicadores de puntos
+.carousel-indicators {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  padding: 20px 0 30px 0;
+  z-index: 2;
+  position: relative;
+}
+
+.indicator-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(11, 108, 140, 0.3);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  
+  &.active {
+    background: #0B6C8C;
+    transform: scale(1.3);
+  }
+  
+  &:hover {
+    background: rgba(11, 108, 140, 0.6);
+  }
+}
+
+// Card de envío
+.envio-card {
+  background: #FFFFFF;
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  width: 100%;
+  min-height: 420px;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-header {
+  text-align: center;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #0B6C8C;
+  padding-bottom: 12px;
+  
+  h2 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #0B6C8C;
+    margin: 0 0 8px 0;
+  }
+  
+  .fecha {
+    font-size: 14px;
+    color: #666;
+    margin: 0;
+  }
+}
+
+.card-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.info-section {
+  margin-bottom: 16px;
+  
+  label {
+    display: block;
+    font-size: 12px;
+    font-weight: bold;
+    color: #0B6C8C;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+  }
+  
+  .info-text {
+    font-size: 14px;
+    color: #333;
+    line-height: 1.4;
+    white-space: pre-line;
+    margin: 0;
+  }
+}
+
+// Botón de estado
+.estado-button {
+  width: 100%;
+  padding: 12px;
+  border-radius: 25px;
+  border: none;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: default;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 16px;
+  
+  ion-icon {
+    font-size: 20px;
+  }
+}
+
+// Estados con diferentes colores
+.estado-completado {
+  background-color: #6BA292;
+  color: #FFFFFF;
+}
+
+.estado-en-transito {
+  background-color: #F4A261;
+  color: #FFFFFF;
+}
+
+.estado-enviado {
+  background-color: #2A9D8F;
+  color: #FFFFFF;
+}
+
+.estado-recibido {
+  background-color: #0B6C8C;
+  color: #FFFFFF;
+}
+
+// Botón Ver Detalles
+.ver-detalles-button {
+  width: 100%;
+  padding: 12px;
+  border-radius: 25px;
+  border: 2px solid #0B6C8C;
+  background-color: transparent;
+  color: #0B6C8C;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 10px;
+  
+  ion-icon {
+    font-size: 20px;
+  }
+  
+  &:hover {
+    background-color: #0B6C8C;
+    color: #FFFFFF;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(11, 108, 140, 0.3);
+  }
+  
+  &:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(11, 108, 140, 0.2);
+  }
+}
+
+// Responsive
+@media (max-width: 360px) {
+  .carousel-wrapper {
+    max-width: 300px;
+  }
+  
+  .envio-card {
+    padding: 18px;
+    min-height: 400px;
+  }
+  
+  .card-header h2 {
+    font-size: 20px;
+  }
+  
+  .info-text {
+    font-size: 13px;
+  }
+  
+  .carousel-btn {
+    width: 40px;
+    height: 40px;
+    
+    ion-icon {
+      font-size: 24px;
+    }
+  }
+  
+  .estado-button,
+  .ver-detalles-button {
+    font-size: 14px;
+    padding: 10px;
+  }
 }

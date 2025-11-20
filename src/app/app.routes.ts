@@ -4,6 +4,7 @@ import { Tab1Page } from './tab1/tab1.page';
 import { LoginPage } from './pages/login/login.page';
 import { CajaComponent } from './caja/caja.component';
 import { Tab3Page } from './tab3/tab3.page';
+import { Tab2Page } from './tab2/tab2.page';
 
 export const routes: Routes = [
   {
@@ -32,17 +33,15 @@ export const routes: Routes = [
     component: Tab3Page
   },
   {
-  path: 'historial',
-  loadComponent: () => import('./pages/historial/historial.page').then(m => m.HistorialPage)
+    path: 'historial',
+    component: Tab2Page
+  },
+  {
+    path: 'detalle-historial',
+    loadComponent: () => import('./pages/detalle-historial/detalle-historial.page').then(m => m.DetalleHistorialPage)
   },
   {
     path: '**',
     redirectTo: 'login'
-  },
-  {
-    path: 'historial',
-    loadComponent: () => import('./pages/historial/historial.page').then( m => m.HistorialPage)
   }
-
-
 ];
