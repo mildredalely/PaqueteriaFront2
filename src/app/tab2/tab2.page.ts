@@ -1,15 +1,15 @@
 import { Component } from '@angular/core';
-import { IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/angular/standalone';
-import { ExploreContainerComponent } from '../explore-container/explore-container.component';
+import { CommonModule } from '@angular/common';
+import { IonicModule } from '@ionic/angular';
+import { HistorialPage } from '../pages/historial/historial.page';
 
 @Component({
   selector: 'app-tab2',
   templateUrl: 'tab2.page.html',
   styleUrls: ['tab2.page.scss'],
-  imports: [IonHeader, IonToolbar, IonTitle, IonContent, ExploreContainerComponent]
+  standalone: true,
+  imports: [CommonModule, IonicModule, HistorialPage]
 })
 export class Tab2Page {
-
   constructor() {}
-
 }
