@@ -1,9 +1,6 @@
 <div class="pantalla-ajustada">
 
-  <!-- Botón de regresar -->
-  <ion-button fill="clear" class="btn-regresar" (click)="volver()">
-    <ion-icon name="arrow-back-circle-outline"></ion-icon>
-  </ion-button>
+  
 
   <!-- OLA SUPERIOR -->
   <div class="ola-superior">
@@ -20,11 +17,8 @@
   <div class="reporte-card">
     <h2 class="titulo">CIERRE DE CAJA</h2>
 
-    <p class="subtitulo">Validación del turno</p>
-
+   
     <div class="turno-box">
-      <div class="turno-titulo">Datos de cierre</div>
-
       <div class="turno-info">
 
         <!-- Total esperado -->
@@ -37,12 +31,7 @@
           <input type="number" [(ngModel)]="efectivoCaja" class="input-caja" placeholder="Ingresa efectivo">
         </div>
 
-        <!-- Correo -->
-        <div class="fila-input">
-          <label class="label">Correo para enviar reporte</label>
-          <input type="email" [(ngModel)]="correo" class="input-caja" placeholder="correo@ejemplo.com">
-        </div>
-
+        
         <!-- Botón enviar -->
         <div class="btn-imprimir-container">
           <ion-button color="primary" shape="round" size="small" (click)="cerrarTurno()">

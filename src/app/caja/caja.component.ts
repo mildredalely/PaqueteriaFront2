@@ -36,9 +36,7 @@ export class CajaComponent implements OnInit {
       return this.showAlert("Advertencia", "El efectivo no coincide con el total del día.");
     }
 
-    if (!this.correo) {
-      return this.showAlert("Error", "Ingresa un correo válido.");
-    }
+   
 
     const alert = await this.alertCtrl.create({
       header: "Confirmar envío",
