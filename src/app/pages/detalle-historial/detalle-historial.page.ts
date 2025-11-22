@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { FooterComponent } from "src/app/components/footer/footer.component";
 
 interface Envio {
   numero: string;
@@ -16,7 +17,7 @@ interface Envio {
   templateUrl: './detalle-historial.page.html',
   styleUrls: ['./detalle-historial.page.scss'],
   standalone: true,
-  imports: [CommonModule, IonicModule]
+  imports: [CommonModule, IonicModule, FooterComponent]
 })
 export class DetalleHistorialPage implements OnInit {
 
