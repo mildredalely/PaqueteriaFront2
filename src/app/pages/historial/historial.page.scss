@@ -4,6 +4,7 @@
   position: relative;
   display: flex;
   flex-direction: column;
+  padding-bottom: 60px;
 }
 
 // Olas decorativas
@@ -13,27 +14,16 @@
   left: 0;
   width: 100%;
   z-index: 1;
+  transform: translateY(-40%);
   
-  svg {
+  ion-img {
     width: 100%;
-    height: 150px;
+    height: auto;
     display: block;
   }
 }
 
-.wave-bottom {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  z-index: 1;
-  
-  svg {
-    width: 100%;
-    height: 180px;
-    display: block;
-  }
-}
+
 
 // Header
 .header-content {
@@ -328,4 +318,5 @@
     font-size: 14px;
     padding: 10px;
   }
+  
 }
