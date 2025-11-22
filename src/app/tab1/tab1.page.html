@@ -1,8 +1,12 @@
 <div class="wrap">
     <ion-img class="img1" src="assets/Path_15.png"></ion-img>
-
     @if (step == 1) {
     <h1>GENERAR ENVÍO DE MÉXICO A EEUU.</h1>
+    }@else{
+    <h1 style="visibility: hidden;">GENERAR ENVÍO DE MÉXICO A EEUU.</h1>
+    }
+
+    @if (step == 1) {
     <div class="envio-content">
         <h2>Información del remitente</h2>
         <div class="envio-content-row">
@@ -22,7 +26,6 @@
         </div>
     </div>
     }@else if(step == 2){
-    <h1>GENERAR ENVÍO DE MÉXICO A EEUU.</h1>
     <div class="envio-content">
         <h2>Información del destinatario</h2>
         <div class="envio-content-row">
@@ -61,7 +64,6 @@
         </div>
     </div>
     }@else if(step == 3){
-    <h1>GENERAR ENVÍO DE MÉXICO A EEUU.</h1>
     <div class="envio-content">
         <h2>Información del paquete</h2>
         <div class="card_cantainer">
@@ -109,7 +111,6 @@
         </div>
     </div>
     }@else if(step == 4){
-    <h1>GENERAR ENVÍO DE MÉXICO A EEUU.</h1>
     <div class="envio-content">
         <div class="details">
             <h2>Detalles del pedido</h2>
@@ -138,7 +139,6 @@
         </div>
     </div>
     }@else if (step == 5) {
-    <h1>GENERAR ENVÍO DE MÉXICO A EEUU.</h1>
     <div class="envio-content" (click)="nextStep()">
         <h2>
             PEDIDO REALIZADO CORRECTAMENTE!

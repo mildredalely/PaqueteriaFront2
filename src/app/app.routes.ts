@@ -5,6 +5,7 @@ import { LoginPage } from './pages/login/login.page';
 import { CajaComponent } from './caja/caja.component';
 import { Tab3Page } from './tab3/tab3.page';
 import { Tab2Page } from './tab2/tab2.page';
+import { DetalleHistorialPage } from './pages/detalle-historial/detalle-historial.page';
 
 export const routes: Routes = [
   {
@@ -38,8 +39,7 @@ export const routes: Routes = [
   },
   {
     path: 'detalle-historial',
-    loadComponent: () => import('./pages/detalle-historial/detalle-historial.page').then(m => m.DetalleHistorialPage)
-  },
+    component: DetalleHistorialPage},
   {
     path: '**',
     redirectTo: 'login'
