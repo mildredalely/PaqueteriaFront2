@@ -1,10 +1,13 @@
+
 .historial-container {
   height: 100%;
   background: linear-gradient(180deg, #FFFFFF 0%, #F8F9FA 100%);
   position: relative;
   display: flex;
   flex-direction: column;
-  padding-bottom: 60px;
+  padding-bottom: 80px;
+  padding-top: 0;
+  margin-top: 0;
 }
 
 // Olas decorativas
@@ -22,8 +25,6 @@
     display: block;
   }
 }
-
-
 
 // Header
 .header-content {
@@ -50,7 +51,7 @@
   align-items: center;
   justify-content: center;
   position: relative;
-  z-index: 2;
+  z-index: 10;
   padding: 20px 10px;
   max-height: 500px;
 }
@@ -75,26 +76,30 @@
   padding: 0 10px;
 }
 
-// Botones de navegación
+// Botones de navegación con flechas < y >
 .carousel-btn {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background: rgba(11, 108, 140, 0.8);
-  border: none;
-  border-radius: 50%;
-  width: 45px;
-  height: 45px;
+  background: #0B6C8C;
+  border: 3px solid #0B6C8C;
+  border-radius: 50px;
+  width: 50px;
+  height: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  z-index: 10;
+  z-index: 100;
   transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
   
-  ion-icon {
-    font-size: 28px;
+  .arrow-icon {
+    font-size: 40px;
+    font-weight: bold;
     color: #FFFFFF;
+    line-height: 1;
+    user-select: none;
   }
   
   &:active {
@@ -104,11 +109,21 @@
   &:disabled {
     opacity: 0.3;
     cursor: not-allowed;
+    border-color: #ccc;
+    
+    .arrow-icon {
+      color: #ccc;
+    }
   }
   
   &:not(:disabled):hover {
-    background: rgba(11, 108, 140, 1);
-    transform: translateY(-50%) scale(1.05);
+    background: #0B6C8C;
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: 0 6px 16px rgba(11, 108, 140, 0.4);
+    
+    .arrow-icon {
+      color: #FFFFFF;
+    }
   }
 }
 
@@ -305,11 +320,11 @@
   }
   
   .carousel-btn {
-    width: 40px;
-    height: 40px;
+    width: 45px;
+    height: 45px;
     
-    ion-icon {
-      font-size: 24px;
+    .arrow-icon {
+      font-size: 36px;
     }
   }
   
@@ -318,5 +333,4 @@
     font-size: 14px;
     padding: 10px;
   }
-  
 }
