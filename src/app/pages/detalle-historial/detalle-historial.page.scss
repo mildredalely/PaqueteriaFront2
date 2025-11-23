@@ -39,20 +39,25 @@
 .back-button {
   position: absolute;
   left: 20px;
-  background: rgba(11, 108, 140, 0.9);
+  background: #0B6C8C;
   border: none;
   border-radius: 50%;
-  width: 45px;
-  height: 45px;
+  width: 50px;
+  height: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  z-index: 10;
   
-  ion-icon {
-    font-size: 28px;
+  .arrow-icon {
+    font-size: 40px;
+    font-weight: bold;
     color: #FFFFFF;
+    line-height: 1;
+    user-select: none;
   }
   
   &:active {
@@ -60,7 +65,12 @@
   }
   
   &:hover {
-    background: rgba(11, 108, 140, 1);
+    background: #FFFFFF;
+    border: 3px solid #0B6C8C;
+    
+    .arrow-icon {
+      color: #0B6C8C;
+    }
   }
 }
 
