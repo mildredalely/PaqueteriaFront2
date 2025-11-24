@@ -4,50 +4,48 @@ ion-footer {
   left: 0;
   right: 0;
   z-index: 999;
-  
-  ion-toolbar {
-    --background: transparent;
-    --border-width: 0;
-    --padding-top: 0;
-    --padding-bottom: 0;
-    --min-height: auto;
-  }
 }
 
+ion-footer ion-toolbar {
+  --background: transparent;
+  --border-width: 0;
+  --padding-top: 0;
+  --padding-bottom: 0;
+  --min-height: auto;
+  padding: 0;
+}
+
+/* Contenedor del background curvo */
 .footer {
-  position: relative;
   width: 100%;
-  z-index: 1;
+  position: relative;
 }
 
 .footer img {
   width: 100%;
-  height: auto;
   display: block;
 }
 
+/* Íconos dentro de la curva */
 .footer-content {
   position: absolute;
-  bottom: 8px;
+  bottom: -10px; /* Ajusta para que queden dentro del “valle” del path */
   left: 0;
   right: 0;
-  z-index: 100;
   display: flex;
+  justify-content: space-evenly;
   align-items: center;
-  justify-content: space-around;
-  padding: 0 40px;
+  z-index: 10;
+  padding: 0 20px;
 }
 
+/* Botones */
 .footer-btn {
   background: transparent;
   border: none;
-  padding: 0;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 64px;
+  width: 64px;    /* más pequeño para que no sobresalgan */
   height: 64px;
+  padding: 0;
 }
 
 .footer-btn img {
