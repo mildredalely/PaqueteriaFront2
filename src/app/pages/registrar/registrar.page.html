@@ -3,19 +3,16 @@
     <div class="add-content">
         <h1>REGISTRO DE USUARIO NUEVO</h1>
         <h2>Rellena los campos para agregar un usuario nuevo</h2>
-        
-        <div class="add-content-row">
-            <ion-label for="">Nombre</ion-label>
-            <ion-input type="text"></ion-input>
-        </div>
-        <div class="add-content-row">
-            <ion-label for="">Nombre de usuario</ion-label>
-            <ion-input type="text"></ion-input>
-        </div>
-        <div class="add-content-row">
-            <ion-label for="">Contraseña</ion-label>
-            <ion-input type="text"></ion-input>
-        </div>
-        <ion-button type="button" class="btnAdd" routerLink="/login">Agregar usuario</ion-button>        
+        <form (ngSubmit)="register()">
+            <div class="add-content-row">
+                <ion-label for="">Nombre</ion-label>
+                <ion-input type="text" [(ngModel)]="credentials.username" name="username"></ion-input>
+            </div>
+            <div class="add-content-row">
+                <ion-label for="">Contraseña</ion-label>
+                <ion-input type="password" [(ngModel)]="credentials.password" name="password"></ion-input>
+            </div>
+            <ion-button type="submit" class="btnAdd" [disabled]="!credentials.username || !credentials.password">Agregar usuario</ion-button>
+        </form>
     </div>
 </div>
