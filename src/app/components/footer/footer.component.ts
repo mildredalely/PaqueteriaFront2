@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { IonButton, IonFooter, IonToolbar} from "@ionic/angular/standalone";
+import { IonButton, IonFooter, IonToolbar, IonIcon, IonButtons } from "@ionic/angular/standalone";
 
 @Component({
   selector: 'app-footer',

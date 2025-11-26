@@ -4,19 +4,21 @@
     <h1>EXPORTACIONES GUELAGUETZA</h1>
     <h2>Enviemos felicidad</h2>
     <p>Rellena los campos para iniciar sesión</p>
-
-    <div class="login-content-row">
-      <ion-label for="">Usuario</ion-label>
-      <ion-input type="text"></ion-input>
-    </div>
-    <div class="login-content-row">
-      <ion-label for="">Contraseña</ion-label>
-      <ion-input type="text"></ion-input>
-    </div>
-    <div class="buttons-container">
-      <ion-button class="btnLogin" routerLink="/envio-mx">Iniciar sesión</ion-button>
-      <ion-button class="btnNuevo" routerLink="/nuevo">Agregar usuario</ion-button>
-      <ion-img src="assets/cajas.webp" alt=""></ion-img>
-    </div>
+    
+    <form (ngSubmit)="login()">
+      <div class="login-content-row">
+        <ion-label for="">Usuario</ion-label>
+        <ion-input type="text" [(ngModel)]="credentials.username" name="username"></ion-input>
+      </div>
+      <div class="login-content-row">
+        <ion-label for="">Contraseña</ion-label>
+        <ion-input type="password" [(ngModel)]="credentials.password" name="password"></ion-input>
+      </div>
+      <div class="buttons-container">
+        <ion-button class="btnLogin" type="submit" [disabled]="!credentials.username || !credentials.password">Iniciar sesión</ion-button>
+        <ion-button class="btnNuevo" routerLink="/nuevo">Agregar usuario</ion-button>
+        <ion-img src="assets/cajas.webp" alt=""></ion-img>
+      </div>
+    </form>
   </div>
 </div>
