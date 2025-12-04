@@ -11,15 +11,10 @@
       <path d="M-1.41,47.61 C149.99,150.00 271.52,-49.98 500.00,49.99 L500.00,0.00 L0.00,0.00 Z"></path>
     </svg>
   </div>
-   <!-- Botón de regresar -->
-  <ion-button fill="clear" class="btn-regresar" (click)="volver()">
-    <ion-icon name="arrow-back-circle-outline"></ion-icon>
-  </ion-button>
   
   <!-- CARD PRINCIPAL -->
   <div class="reporte-card">
     <h2 class="titulo">CIERRE DE CAJA</h2>
-
     <p class="subtitulo">Validación del turno</p>
 
     <div class="turno-box">
@@ -27,15 +22,31 @@
 
       <div class="turno-info">
 
-        <!-- Total esperado -->
-        <p class="label">Total esperado</p>
-        <p class="valor">${{ totalEsperado }}</p>
+        <!-- Total esperado (Leído del localStorage) -->
+        <p class="label">Total esperado (Sistema)</p>
+        <p class="valor">{{ totalEsperado | currency }}</p>
 
-        <!-- Cantidad en caja -->
+        <!-- Cantidad en caja (Input Usuario) -->
         <div class="fila-input">
-          <label class="label">Efectivo en caja</label>
-          <input type="number" [(ngModel)]="efectivoCaja" class="input-caja" placeholder="Ingresa efectivo">
+          <label class="label">Efectivo en caja (Real)</label>
+          <div class="input-wrapper">
+             <span class="signo">$</span>
+             <input type="number" [(ngModel)]="efectivoCaja" class="input-caja" placeholder="0.00">
+          </div>
         </div>
+
+        <!-- AYUDA VISUAL: Muestra si falta o sobra dinero -->
+        <div *ngIf="efectivoCaja !== null" class="mensaje-validacion">
+            <!-- Si la diferencia es casi 0 (margen de 1 peso), es verde. Si no, rojo -->
+            <p [style.color]="(diferencia > -1 && diferencia < 1) ? 'green' : '#e74c3c'">
+               {{ (diferencia > -1 && diferencia < 1) 
+                  ? '¡La caja cuadra perfecto!' 
+                  : 'Diferencia: ' + (diferencia | currency) 
+               }}
+            </p>
+        </div>
+
+        <br>
 
         <!-- Correo -->
         <div class="fila-input">
@@ -46,7 +57,7 @@
         <!-- Botón enviar -->
         <div class="btn-imprimir-container">
           <ion-button color="primary" shape="round" size="small" (click)="cerrarTurno()">
-            Enviar reporte
+            Validar y Enviar
           </ion-button>
         </div>
 

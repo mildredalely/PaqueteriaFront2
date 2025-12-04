@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl:'http://192.168.205.1:3000'
+  apiUrl: 'https://paqueteriaback-production.up.railway.app'
 };
 
 /*

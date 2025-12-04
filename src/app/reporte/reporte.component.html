@@ -1,50 +1,55 @@
 <div class="pantalla-ajustada">
 
-
+  <!-- Decoración Superior -->
   <div class="ola-superior">
     <svg viewBox="0 0 500 150" preserveAspectRatio="none">
       <path d="M-1.41,47.61 C149.99,150.00 271.52,-49.98 500.00,49.99 L500.00,0.00 L0.00,0.00 Z"></path>
     </svg>
   </div>
 
- 
   <div class="reporte-card">
     <h2 class="titulo">GENERAR REPORTE</h2>
-
-    <p class="subtitulo">Envíos del día</p>
-  
+    <!-- Muestra la fecha de hoy automáticamente -->
+    <p class="subtitulo">Envíos del día ({{ fechaHoy | date:'dd/MM/yyyy' }})</p>
 
     <div class="turno-box">
-      <div class="turno-titulo">Turno </div>
+      <div class="turno-titulo">Resumen del Turno</div>
 
       <div class="turno-info">
         <p class="label">Empleado en turno</p>
-        <p class="valor">Mildred</p>
+        <p class="valor">{{ empleado }}</p>
 
         <div class="fila">
+          <!-- PEDIDOS: Dato traído del Backend -->
           <div class="bloque pedidos">
             <p>Pedidos</p>
-            <h3>15</h3>
+            <h3>{{ pedidos }}</h3>
           </div>
 
+          <!-- INGRESOS: Suma automática del Backend -->
           <div class="bloque ingresos">
             <p>Ingresos</p>
-            <h3>$2,500.00</h3>
+            <h3>{{ ingresos | currency }}</h3>
           </div>
         </div>
 
         <div class="fila">
+          <!-- SALIDAS: Campo editable por el usuario -->
           <div class="bloque salidas">
-            <p>Salidas</p>
-            <h3>$500.00</h3>
+            <p>Salidas (Gastos)</p>
+            <div class="input-dinero">
+              <span class="signo">$</span>
+              <input type="number" [(ngModel)]="salidas" (ngModelChange)="calcularTotal()" placeholder="0">
+            </div>
           </div>
 
+          <!-- TOTAL: Cálculo automático (Ingresos - Salidas) -->
           <div class="bloque total-turno">
             <p>Total del turno</p>
-            <h3>$2,000.00</h3>
+            <!-- Si es negativo se pone rojo, si es positivo negro -->
+            <h3 [style.color]="total >= 0 ? 'black' : '#e74c3c'">{{ total | currency }}</h3>
           </div>
         </div>
-
         
         <div class="btn-imprimir-container">
           <ion-button color="primary" shape="round" size="small" (click)="imprimir()">
@@ -55,8 +60,6 @@
       </div>
     </div>
   </div>
-
-
   
   <app-footer></app-footer>
 

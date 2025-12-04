@@ -3,13 +3,15 @@ import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { HistorialPage } from '../pages/historial/historial.page';
 import { RouterLink } from '@angular/router';
+import { ExploreContainerComponent } from '../explore-container/explore-container.component';
+
 
 @Component({
   selector: 'app-tab2',
   templateUrl: 'tab2.page.html',
   styleUrls: ['tab2.page.scss'],
   standalone: true,
-  imports: [CommonModule, IonicModule, HistorialPage,]
+  imports: [CommonModule, IonicModule, HistorialPage,ExploreContainerComponent,]
 })
 export class Tab2Page {
   constructor() {}

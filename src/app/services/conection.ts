@@ -8,8 +8,10 @@ import { environment } from 'src/environments/environment.prod';
 })
 export class Conection {
   private apiUrl = environment.apiUrl;
+  
 
   constructor(private http: HttpClient) {}
+  
 
   register(credentials: any): Observable<any>{
     return this.http.post(`${this.apiUrl}/auth/register`, credentials);

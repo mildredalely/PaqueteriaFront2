@@ -80,11 +80,11 @@ export class Tab1Page {
     }
 
     this.conection.createPedido(this.pedido_data).subscribe({
-      next: (response) =>{
+      next: (response: any) =>{
         console.log('Envío registrado con éxito', response);
         this.step = 5;
       },
-      error: (error) =>{
+      error: (error: any) =>{
         console.error('Error al procesar el envío ', error);
         alert('Error al procesar el envío');
       }
