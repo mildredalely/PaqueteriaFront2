@@ -14,15 +14,15 @@
             <h2>Información del remitente</h2>
             <div class="envio-content-row">
                 <ion-label for="">Nombre</ion-label>
-                <ion-input type="text"></ion-input>
+                <ion-input type="text" [(ngModel)]="pedido_data.remitente.nombre" name="remitente"></ion-input> 
             </div>
             <div class="envio-content-row">
                 <ion-label for="">Teléfono</ion-label>
-                <ion-input type="text"></ion-input>
+                <ion-input type="text" [(ngModel)]="pedido_data.remitente.telefono" name="remitenteTelefono"></ion-input>
             </div>
             <div class="envio-content-row">
                 <ion-label for="">N° de identificación</ion-label>
-                <ion-input type="text"></ion-input>
+                <ion-input type="text" [(ngModel)]="pedido_data.remitente.identificacion" name="remitenteID"></ion-input>
             </div>
             <div class="envio-content-row-btn">
                 <ion-button class="btnNext" (click)="nextStep()">Siguiente</ion-button>
@@ -36,34 +36,34 @@
             <h2>Información del destinatario</h2>
             <div class="envio-content-row">
                 <ion-label for="">Nombre</ion-label>
-                <ion-input type="text"></ion-input>
+                <ion-input type="text" [(ngModel)]="pedido_data.destinatario.nombre" name="destinatarioNombre"></ion-input>
             </div>
             <div class="envio-content-row">
                 <ion-label for="">Teléfono</ion-label>
-                <ion-input type="text"></ion-input>
+                <ion-input type="text" [(ngModel)]="pedido_data.destinatario.telefono" name="destinatarioTelefono"></ion-input>
             </div>
             <div class="envio-content-row">
                 <ion-label for="">Ciudad</ion-label>
-                <ion-input type="text"></ion-input>
+                <ion-input type="text" [(ngModel)]="pedido_data.destinatario.ciudad" name="destinatarioCiudad"></ion-input>
             </div>
             <div class="envio-content-row-mid">
                 <p>En caso de enviar a una ciudad fuera de California, rellene lo siguiente</p>
             </div>
             <div class="envio-content-row">
                 <ion-label for="">Dirección completa</ion-label>
-                <ion-input type="text"></ion-input>
+                <ion-input type="text" [(ngModel)]="pedido_data.destinatario.direccion_completa" name="destinatarioDirCompleta"></ion-input>
             </div>
             <div class="envio-content-row2">
                 <ion-label for="">C.P.</ion-label>
-                <ion-input type="text"></ion-input>
+                <ion-input type="text" [(ngModel)]="pedido_data.destinatario.cp" name="destinatarioCP"></ion-input>
             </div>
             <div class="envio-content-row2">
                 <ion-label for="">Ciudad</ion-label>
-                <ion-input type="text"></ion-input>
+                <ion-input type="text" [(ngModel)]="pedido_data.destinatario.ciudad_completa" name="destinatarioCiudadCompleta"></ion-input>
             </div>
             <div class="envio-content-row">
                 <ion-label for="">Horario en que se encuentra</ion-label>
-                <ion-input type="text"></ion-input>
+                <ion-input type="text" [(ngModel)]="pedido_data.destinatario.horario" name="destinatarioHorario"></ion-input>
             </div>
             <div class="envio-content-row-btn">
                 <ion-button class="btnNext" (click)="nextStep()">Agregar mercancía</ion-button>
@@ -76,7 +76,7 @@
 
             <h2>Información del paquete</h2>
             <div class="card_cantainer">
-                @for (product of products; track $index) {
+                @for (product of pedido_data.products; track $index) {
                 <div class="card">
                     <h2>Producto: {{product.nombre}}</h2>
                     <h2>Peso: {{product.peso}}lb</h2>
@@ -89,41 +89,41 @@
                 </div>
                 }
             </div>
+            <h2>Información del paquete</h2>
             <div class="envio-content-row">
                 <ion-label for="">Nombre del producto</ion-label>
-                <ion-input type="text"></ion-input>
+                <ion-input type="text" [(ngModel)]="nuevo_producto.nombre" name="prodNombre"></ion-input>
             </div>
             <div class="envio-content-row2">
                 <ion-label for="">Peso en libras</ion-label>
-                <ion-input type="text"></ion-input>
+                <ion-input type="text" [(ngModel)]="nuevo_producto.peso" name="prodPeso"></ion-input>
             </div>
             <div class="envio-content-row2">
                 <ion-label for="">Es frágil?</ion-label>
-                <ion-select name="fragil" id="">
+                <ion-select name="fragil" [(ngModel)]="nuevo_producto.fragil">
                     <ion-select-option value="si">Sí</ion-select-option>
                     <ion-select-option value="no">No</ion-select-option>
                 </ion-select>
             </div>
             <div class="envio-content-row2">
                 <ion-label for="">Precio</ion-label>
-                <ion-input type="text"></ion-input>
+                <ion-input type="text" [(ngModel)]="nuevo_producto.costo" name="prodCosto"></ion-input>
             </div>
             <div class="envio-content-row2">
                 <ion-label for="">Total</ion-label>
-                <ion-input type="text"></ion-input>
+                <ion-input type="text" [(ngModel)]="pedido_data.total" name="pedidoTotal"></ion-input>
             </div>
             <div class="envio-content-row2">
-                <ion-button class="btnNext" (click)="nextStep()">Agregar</ion-button>
+                <ion-button class="btnNext" (click)="agregarNuevoProducto()">Agregar</ion-button> 
             </div>
             <div class="envio-content-row2">
-                <ion-button class="btnNext" (click)="nextStep()">Guardar</ion-button>
+                <ion-button class="btnNext" (click)="guardarPedido()">Guardar</ion-button> 
             </div>
         </form>
     </div>
     }@else if(step == 4){
     <div class="envio-content">
         <form >
-
             <div class="details">
                 <h2>Detalles del pedido</h2>
                 <p>fecha de creación</p>
