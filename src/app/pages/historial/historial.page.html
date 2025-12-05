@@ -1,0 +1,82 @@
+<ion-content [fullscreen]="true">
+  <div class="historial-container">
+
+    <!-- Olas decorativas superiores -->
+    <div class="wave-top">
+      <ion-img src="assets/Path_15.png"></ion-img>
+    </div>
+
+    <!-- Título -->
+    <div class="header-content">
+      <h1 class="title">HISTORIAL</h1>
+    </div>
+
+    <!-- Carrusel de envíos -->
+    <div class="carousel-container">
+      <!-- Botón anterior -->
+      <button class="carousel-btn prev-btn" (click)="prevSlide()" [disabled]="currentIndex === 0">
+        <span class="arrow-icon">&lt;</span>
+      </button>
+
+      <!-- Contenedor de slides -->
+      <div class="carousel-wrapper">
+        <div class="carousel-track" [style.transform]="'translateX(-' + (currentIndex * 100) + '%)'">
+          <div class="carousel-slide" *ngFor="let envio of envios; let i = index">
+            <div class="envio-card">
+              <div class="card-header">
+                <h2>{{ envio.numero }}</h2>
+                <p class="fecha">{{ envio.fecha }}</p>
+              </div>
+
+              <div class="card-body">
+                <div class="info-section">
+                  <label>Remitente</label>
+                  <p class="info-text">{{ envio.remitente }}</p>
+                </div>
+
+                <div class="info-section">
+                  <label>Destinatario</label>
+                  <p class="info-text">{{ envio.destinatario }}</p>
+                </div>
+
+                <!-- Botón de estado -->
+                <button 
+                  class="estado-button" 
+                  [ngClass]="'estado-' + envio.estado">
+                  <ion-icon name="checkmark-circle-outline"></ion-icon>
+                  {{ getEstadoTexto(envio.estado) }}
+                </button>
+
+                <!-- Nuevo botón Ver Detalles -->
+                <button 
+                  class="ver-detalles-button" 
+                  (click)="verDetalle(envio)">
+                  <ion-icon name="eye-outline"></ion-icon>
+                  Ver Detalles
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Botón siguiente -->
+      <button class="carousel-btn next-btn" (click)="nextSlide()" [disabled]="currentIndex === envios.length - 1">
+        <span class="arrow-icon">&gt;</span>
+      </button>
+    </div>
+
+    <!-- Indicadores de puntos -->
+    <div class="carousel-indicators">
+      <span 
+        *ngFor="let envio of envios; let i = index" 
+        class="indicator-dot" 
+        [class.active]="i === currentIndex"
+        (click)="goToSlide(i)">
+      </span>
+    </div>
+
+  </div>
+</ion-content>
+
+<app-footer></app-footer>

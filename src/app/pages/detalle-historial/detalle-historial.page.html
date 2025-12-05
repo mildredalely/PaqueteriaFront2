@@ -1,0 +1,73 @@
+<ion-content [fullscreen]="true">
+  <div class="detalle-container">
+    
+    <!-- Olas decorativas superiores -->
+<div class="wave-top">
+  <ion-img src="assets/Path_15.png"></ion-img>
+</div>
+
+    <!-- Header con botón de volver -->
+    <div class="header-content">
+      <button class="back-button" (click)="volver()">
+       <span class="arrow-icon">&lt;</span>
+      </button>
+      <h1 class="title">{{ envio?.numero || 'Detalle de Envío' }}</h1>
+    </div>
+
+    <!-- Contenido del detalle -->
+    <div class="content-wrapper" *ngIf="envio">
+      <div class="detalle-card">
+        <div class="card-section">
+          <div class="section-header">
+            <ion-icon name="calendar-outline"></ion-icon>
+            <h3>Fecha</h3>
+          </div>
+          <p class="section-content">{{ envio.fecha }}</p>
+        </div>
+
+        <div class="card-section">
+          <div class="section-header">
+            <ion-icon name="person-outline"></ion-icon>
+            <h3>Remitente</h3>
+          </div>
+          <p class="section-content">{{ envio.remitente }}</p>
+        </div>
+
+        <div class="card-section">
+          <div class="section-header">
+            <ion-icon name="location-outline"></ion-icon>
+            <h3>Destinatario</h3>
+          </div>
+          <p class="section-content">{{ envio.destinatario }}</p>
+        </div>
+
+        <div class="card-section estado-section">
+          <div class="section-header">
+            <ion-icon name="information-circle-outline"></ion-icon>
+            <h3>Estado del Envío</h3>
+          </div>
+          <div class="estado-badge" [ngClass]="'estado-' + envio.estado">
+            <ion-icon name="checkmark-circle"></ion-icon>
+            {{ getEstadoTexto(envio.estado) }}
+          </div>
+        </div>
+      </div>
+
+      <button class="reprint-button">
+        <ion-icon name="print-outline"></ion-icon>
+        Reimprimir ticket
+      </button>
+    </div>
+
+    <!-- Mensaje si no hay datos -->
+    <div class="no-data" *ngIf="!envio">
+      <ion-icon name="alert-circle-outline"></ion-icon>
+      <p>No se encontraron datos del envío</p>
+      <button class="back-button-alt" (click)="volver()">
+        Volver al Historial
+      </button>
+    </div>
+
+  </div>
+</ion-content>
+<app-footer></app-footer>

@@ -1,0 +1,278 @@
+.detalle-container {
+  min-height: 100%;
+  background: linear-gradient(180deg, #FFFFFF 0%, #F8F9FA 100%);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+// Olas decorativas
+.wave-top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1;
+  transform: translateY(-40%);
+  
+  ion-img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+}
+
+
+// Header
+.header-content {
+  position: relative;
+  z-index: 2;
+  padding-top: 80px;
+  padding-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.back-button {
+  position: absolute;
+  left: 20px;
+  background: #0B6C8C;
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  z-index: 10;
+  
+  .arrow-icon {
+    font-size: 40px;
+    font-weight: bold;
+    color: #FFFFFF;
+    line-height: 1;
+    user-select: none;
+  }
+  
+  &:active {
+    transform: scale(0.95);
+  }
+  
+  &:hover {
+    background: #FFFFFF;
+    border: 3px solid #0B6C8C;
+    
+    .arrow-icon {
+      color: #0B6C8C;
+    }
+  }
+}
+
+.title {
+  font-size: 28px;
+  font-weight: bold;
+  color: #0B6C8C;
+  text-shadow: 1px 1px 3px rgba(200, 200, 200, 0.5);
+  margin: 0;
+  text-align: center;
+}
+
+// Contenido
+.content-wrapper {
+  flex: 1;
+  padding: 20px;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-bottom: 200px;
+}
+
+.detalle-card {
+  background: #FFFFFF;
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.card-section {
+  border-bottom: 1px solid #E8E8E8;
+  padding-bottom: 16px;
+  
+  &:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+  
+  ion-icon {
+    font-size: 24px;
+    color: #0B6C8C;
+  }
+  
+  h3 {
+    font-size: 16px;
+    font-weight: bold;
+    color: #0B6C8C;
+    margin: 0;
+    text-transform: uppercase;
+  }
+}
+
+.section-content {
+  font-size: 16px;
+  color: #333;
+  line-height: 1.6;
+  white-space: pre-line;
+  margin: 0;
+  padding-left: 34px;
+}
+
+// Estado
+.estado-section {
+  .section-content {
+    padding-left: 0;
+  }
+}
+
+.estado-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border-radius: 25px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #FFFFFF;
+  margin-left: 34px;
+  
+  ion-icon {
+    font-size: 22px;
+  }
+}
+
+.estado-completado {
+  background-color: #6BA292;
+}
+
+.estado-en-transito {
+  background-color: #F4A261;
+}
+
+.estado-enviado {
+  background-color: #2A9D8F;
+}
+
+.estado-recibido {
+  background-color: #0B6C8C;
+}
+
+// Botón reimprimir
+.reprint-button {
+  width: 100%;
+  padding: 16px;
+  border-radius: 25px;
+  border: none;
+  background-color: #6BA292;
+  color: #FFFFFF;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  
+  ion-icon {
+    font-size: 24px;
+  }
+  
+  &:active {
+    transform: scale(0.98);
+  }
+  
+  &:hover {
+    background-color: #5a8c7d;
+  }
+}
+
+// Sin datos
+.no-data {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  z-index: 2;
+  
+  ion-icon {
+    font-size: 80px;
+    color: #0B6C8C;
+    margin-bottom: 20px;
+  }
+  
+  p {
+    font-size: 18px;
+    color: #666;
+    margin-bottom: 30px;
+  }
+}
+
+.back-button-alt {
+  padding: 14px 32px;
+  border-radius: 25px;
+  border: 2px solid #0B6C8C;
+  background-color: #FFFFFF;
+  color: #0B6C8C;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  
+  &:active {
+    transform: scale(0.98);
+  }
+  
+  &:hover {
+    background-color: #0B6C8C;
+    color: #FFFFFF;
+  }
+}
+
+// Responsive
+@media (max-width: 360px) {
+  .detalle-card {
+    padding: 18px;
+  }
+  
+  .title {
+    font-size: 24px;
+  }
+  
+  .back-button {
+    width: 40px;
+    height: 40px;
+    
+    ion-icon {
+      font-size: 24px;
+    }
+  }
+}

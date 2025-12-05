@@ -1,149 +1,165 @@
 <div class="wrap">
     <ion-img class="img1" src="assets/Path_15.png"></ion-img>
-
     @if (step == 1) {
     <h1>GENERAR ENVÍO DE MÉXICO A EEUU.</h1>
+    }@else if (step== 3){
+    <h3 style="visibility: hidden;">GENERAR ENVÍO DE MÉXICO A EEUU.</h3>
+    }@else{
+    <h1 style="visibility: hidden;">GENERAR ENVÍO DE MÉXICO A EEUU.</h1>
+    }
+
+    @if (step == 1) {
     <div class="envio-content">
-        <h2>Información del remitente</h2>
-        <div class="envio-content-row">
-            <ion-label for="">Nombre</ion-label>
-            <ion-input type="text"></ion-input>
-        </div>
-        <div class="envio-content-row">
-            <ion-label for="">Teléfono</ion-label>
-            <ion-input type="text"></ion-input>
-        </div>
-        <div class="envio-content-row">
-            <ion-label for="">N° de identificación</ion-label>
-            <ion-input type="text"></ion-input>
-        </div>
-        <div class="envio-content-row-btn">
-            <ion-button class="btnNext" (click)="nextStep()">Siguiente</ion-button>
-        </div>
+        <form>
+            <h2>Información del remitente</h2>
+            <div class="envio-content-row">
+                <ion-label for="">Nombre</ion-label>
+                <ion-input type="text" [(ngModel)]="pedido_data.remitente.nombre" name="remitente"></ion-input> 
+            </div>
+            <div class="envio-content-row">
+                <ion-label for="">Teléfono</ion-label>
+                <ion-input type="text" [(ngModel)]="pedido_data.remitente.telefono" name="remitenteTelefono"></ion-input>
+            </div>
+            <div class="envio-content-row">
+                <ion-label for="">N° de identificación</ion-label>
+                <ion-input type="text" [(ngModel)]="pedido_data.remitente.identificacion" name="remitenteID"></ion-input>
+            </div>
+            <div class="envio-content-row-btn">
+                <ion-button class="btnNext" (click)="nextStep()">Siguiente</ion-button>
+            </div>
+        </form>
     </div>
     }@else if(step == 2){
-    <h1>GENERAR ENVÍO DE MÉXICO A EEUU.</h1>
     <div class="envio-content">
-        <h2>Información del destinatario</h2>
-        <div class="envio-content-row">
-            <ion-label for="">Nombre</ion-label>
-            <ion-input type="text"></ion-input>
-        </div>
-        <div class="envio-content-row">
-            <ion-label for="">Teléfono</ion-label>
-            <ion-input type="text"></ion-input>
-        </div>
-        <div class="envio-content-row">
-            <ion-label for="">Ciudad</ion-label>
-            <ion-input type="text"></ion-input>
-        </div>
-        <div class="envio-content-row-mid">
-            <p>En caso de enviar a una ciudad fuera de California, rellene lo siguiente</p>
-        </div>
-        <div class="envio-content-row">
-            <ion-label for="">Dirección completa</ion-label>
-            <ion-input type="text"></ion-input>
-        </div>
-        <div class="envio-content-row2">
-            <ion-label for="">C.P.</ion-label>
-            <ion-input type="text"></ion-input>
-        </div>
-        <div class="envio-content-row2">
-            <ion-label for="">Ciudad</ion-label>
-            <ion-input type="text"></ion-input>
-        </div>
-        <div class="envio-content-row">
-            <ion-label for="">Horario en que se encuentra</ion-label>
-            <ion-input type="text"></ion-input>
-        </div>
-        <div class="envio-content-row-btn">
-            <ion-button class="btnNext" (click)="nextStep()">Agregar mercancía</ion-button>
-        </div>
+        <form>
+
+            <h2>Información del destinatario</h2>
+            <div class="envio-content-row">
+                <ion-label for="">Nombre</ion-label>
+                <ion-input type="text" [(ngModel)]="pedido_data.destinatario.nombre" name="destinatarioNombre"></ion-input>
+            </div>
+            <div class="envio-content-row">
+                <ion-label for="">Teléfono</ion-label>
+                <ion-input type="text" [(ngModel)]="pedido_data.destinatario.telefono" name="destinatarioTelefono"></ion-input>
+            </div>
+            <div class="envio-content-row">
+                <ion-label for="">Ciudad</ion-label>
+                <ion-input type="text" [(ngModel)]="pedido_data.destinatario.ciudad" name="destinatarioCiudad"></ion-input>
+            </div>
+            <div class="envio-content-row-mid">
+                <p>En caso de enviar a una ciudad fuera de California, rellene lo siguiente</p>
+            </div>
+            <div class="envio-content-row">
+                <ion-label for="">Dirección completa</ion-label>
+                <ion-input type="text" [(ngModel)]="pedido_data.destinatario.direccion_completa" name="destinatarioDirCompleta"></ion-input>
+            </div>
+            <div class="envio-content-row2">
+                <ion-label for="">C.P.</ion-label>
+                <ion-input type="text" [(ngModel)]="pedido_data.destinatario.cp" name="destinatarioCP"></ion-input>
+            </div>
+            <div class="envio-content-row2">
+                <ion-label for="">Ciudad</ion-label>
+                <ion-input type="text" [(ngModel)]="pedido_data.destinatario.ciudad_completa" name="destinatarioCiudadCompleta"></ion-input>
+            </div>
+            <div class="envio-content-row">
+                <ion-label for="">Horario en que se encuentra</ion-label>
+                <ion-input type="text" [(ngModel)]="pedido_data.destinatario.horario" name="destinatarioHorario"></ion-input>
+            </div>
+            <div class="envio-content-row-btn">
+                <ion-button class="btnNext" (click)="nextStep()">Agregar mercancía</ion-button>
+            </div>
+        </form>
     </div>
     }@else if(step == 3){
-    <h1>GENERAR ENVÍO DE MÉXICO A EEUU.</h1>
     <div class="envio-content">
-        <h2>Información del paquete</h2>
-        <div class="card_cantainer">
-            @for (product of products; track $index) {
-            <div class="card">
-                <h2>Producto: {{product.nombre}}</h2>
-                <h2>Peso: {{product.peso}}lb</h2>
-                @if(product.fragil){
-                <h2>Fragil? Sí</h2>
-                }@else{
-                <h2>Fráfil? No</h2>
+        <form>
+
+            <h2>Información del paquete</h2>
+            <div class="card_cantainer">
+                @for (product of pedido_data.products; track $index) {
+                <div class="card">
+                    <h2>Producto: {{product.nombre}}</h2>
+                    <h2>Peso: {{product.peso}}lb</h2>
+                    @if(product.fragil){
+                    <h2>Fragil? Sí</h2>
+                    }@else{
+                    <h2>Fráfil? No</h2>
+                    }
+                    <h2>Costo del producto: ${{product.costo}}</h2>
+                </div>
                 }
-                <h2>Costo del producto: ${{product.costo}}</h2>
             </div>
-            }
-        </div>
-        <div class="envio-content-row">
-            <ion-label for="">Nombre del producto</ion-label>
-            <ion-input type="text"></ion-input>
-        </div>
-        <div class="envio-content-row2">
-            <ion-label for="">Peso en libras</ion-label>
-            <ion-input type="text"></ion-input>
-        </div>
-        <div class="envio-content-row2">
-            <ion-label for="">Es frágil?</ion-label>
-            <ion-select name="fragil" id="">
-                <ion-select-option value="si">Sí</ion-select-option>
-                <ion-select-option value="no">No</ion-select-option>
-            </ion-select>
-        </div>
-        <div class="envio-content-row2">
-            <ion-label for="">Precio</ion-label>
-            <ion-input type="text"></ion-input>
-        </div>
-        <div class="envio-content-row2">
-            <ion-label for="">Total</ion-label>
-            <ion-input type="text"></ion-input>
-        </div>
-        <div class="envio-content-row2">
-            <ion-button class="btnNext" (click)="nextStep()">Agregar</ion-button>
-        </div>
-        <div class="envio-content-row2">
-            <ion-button class="btnNext" (click)="nextStep()">Guardar</ion-button>
-        </div>
+            <h2>Información del paquete</h2>
+            <div class="envio-content-row">
+                <ion-label for="">Nombre del producto</ion-label>
+                <ion-input type="text" [(ngModel)]="nuevo_producto.nombre" name="prodNombre"></ion-input>
+            </div>
+            <div class="envio-content-row2">
+                <ion-label for="">Peso en libras</ion-label>
+                <ion-input type="text" [(ngModel)]="nuevo_producto.peso" name="prodPeso"></ion-input>
+            </div>
+            <div class="envio-content-row2">
+                <ion-label for="">Es frágil?</ion-label>
+                <ion-select name="fragil" [(ngModel)]="nuevo_producto.fragil">
+                    <ion-select-option value="si">Sí</ion-select-option>
+                    <ion-select-option value="no">No</ion-select-option>
+                </ion-select>
+            </div>
+            <div class="envio-content-row2">
+                <ion-label for="">Precio</ion-label>
+                <ion-input type="text" [(ngModel)]="nuevo_producto.costo" name="prodCosto"></ion-input>
+            </div>
+            <div class="envio-content-row2">
+                <ion-label for="">Total</ion-label>
+                <ion-input type="text" [(ngModel)]="pedido_data.total" name="pedidoTotal"></ion-input>
+            </div>
+            <div class="envio-content-row2">
+                <ion-button class="btnNext" (click)="agregarNuevoProducto()">Agregar</ion-button> 
+            </div>
+            <div class="envio-content-row2">
+                <ion-button class="btnNext" (click)="guardarPedido()">Guardar</ion-button> 
+            </div>
+        </form>
     </div>
     }@else if(step == 4){
-    <h1>GENERAR ENVÍO DE MÉXICO A EEUU.</h1>
     <div class="envio-content">
-        <div class="details">
-            <h2>Detalles del pedido</h2>
-            <p>fecha de creación</p>
-            <h3>Información del remitente</h3>
-            <ion-img class="line" src="assets/Line9.png" alt=""></ion-img>
-            <p>Nombre: </p>
-            <p>Teléfono: </p>
-            <p>N° de identificación: </p>
-            <h3>Información del destinatario</h3>
-            <ion-img class="line" src="assets/Line9.png" alt=""></ion-img>
-            <p>Nombre: </p>
-            <p>Teléfono: </p>
-            <p>Ciudad: </p>
-            <p>Dirección completa: </p>
-            <p>C.P.: </p>
-            <p>Ciudad: </p>
-            <p>Horario en que se encuentra: </p>
-            <ion-img class="line" src="assets/Line9.png" alt=""></ion-img>
-        </div>
-        <div class="envio-content-row2">
-            <p>Comprueba los datos antes de imprimir</p>
-        </div>
-        <div class="envio-content-row2">
-            <ion-button class="btnNext" (click)="nextStep()">Imprimir</ion-button>
-        </div>
+        <form >
+            <div class="details">
+                <h2>Detalles del pedido</h2>
+                <p>fecha de creación</p>
+                <h3>Información del remitente</h3>
+                <ion-img class="line" src="assets/Line9.png" alt=""></ion-img>
+                <p>Nombre: </p>
+                <p>Teléfono: </p>
+                <p>N° de identificación: </p>
+                <h3>Información del destinatario</h3>
+                <ion-img class="line" src="assets/Line9.png" alt=""></ion-img>
+                <p>Nombre: </p>
+                <p>Teléfono: </p>
+                <p>Ciudad: </p>
+                <p>Dirección completa: </p>
+                <p>C.P.: </p>
+                <p>Ciudad: </p>
+                <p>Horario en que se encuentra: </p>
+                <ion-img class="line" src="assets/Line9.png" alt=""></ion-img>
+            </div>
+            <div class="envio-content-row2">
+                <p>Comprueba los datos antes de imprimir</p>
+            </div>
+            <div class="envio-content-row2">
+                <ion-button class="btnNext" (click)="nextStep()">Imprimir</ion-button>
+            </div>
+        </form>
     </div>
     }@else if (step == 5) {
-    <h1>GENERAR ENVÍO DE MÉXICO A EEUU.</h1>
     <div class="envio-content" (click)="nextStep()">
-        <h2>
-            PEDIDO REALIZADO CORRECTAMENTE!
-        </h2>
-        <p>Presiona la pantalla para continuar</p>
+        <form >
+
+            <h2>
+                PEDIDO REALIZADO CORRECTAMENTE!
+            </h2>
+            <p>Presiona la pantalla para continuar</p>
+        </form>
     </div>
     }
     <app-footer></app-footer>
