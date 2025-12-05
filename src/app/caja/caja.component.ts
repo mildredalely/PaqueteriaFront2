@@ -2,11 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { IonicModule, AlertController } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
+import { FooterComponent } from '../components/footer/footer.component';
+import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: 'app-caja',
   standalone: true,
-  imports: [IonicModule, FormsModule],
+  imports: [IonicModule, FormsModule,FooterComponent, CommonModule],
   templateUrl: './caja.component.html',
   styleUrls: ['./caja.component.scss'],
 })

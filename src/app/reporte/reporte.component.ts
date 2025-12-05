@@ -1,14 +1,17 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
+import { FooterComponent } from '../components/footer/footer.component';
+import { FormsModule } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-reporte',
   templateUrl: './reporte.component.html',
-  imports: [IonicModule, CommonModule,],
   styleUrls: ['./reporte.component.scss'],
   standalone: true,
   // Importante: HttpClientModule debe estar aquí para que funcione la petición
-  imports: [IonicModule, CommonModule, FooterComponent, FormsModule, HttpClientModule],
+  imports: [IonicModule, CommonModule, FooterComponent, FormsModule, ],
 })
 export class ReporteComponent implements OnInit {
 
