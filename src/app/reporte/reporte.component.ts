@@ -18,7 +18,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 export class ReporteComponent implements OnInit {
 
   // Datos para mostrar en pantalla
-  empleado: string = 'Mildred';
+ 
   fechaHoy: Date = new Date();
 
   pedidos: number = 0;
@@ -80,7 +80,6 @@ export class ReporteComponent implements OnInit {
   imprimir() {
     // Preparamos todos los datos para enviarlos a la pantalla de Caja (PDF)
     const datosParaReporte = {
-      empleado: this.empleado,
       fecha: new Date().toISOString(),
       pedidos: this.pedidos,
       ingresos: this.ingresos,
