@@ -17,12 +17,20 @@
                 <ion-input type="text" [(ngModel)]="pedido_data.remitente.nombre" name="remitente"></ion-input> 
             </div>
             <div class="envio-content-row">
+                <ion-label for="">Apellido</ion-label>
+                <ion-input type="text" [(ngModel)]="pedido_data.remitente.apellido" name="apellido"></ion-input> 
+            </div>
+            <div class="envio-content-row">
+                <ion-label for="">Correo</ion-label>
+                <ion-input type="text" [(ngModel)]="pedido_data.remitente.email" name="correo"></ion-input> 
+            </div>
+            <div class="envio-content-row">
                 <ion-label for="">Teléfono</ion-label>
                 <ion-input type="text" [(ngModel)]="pedido_data.remitente.telefono" name="remitenteTelefono"></ion-input>
             </div>
             <div class="envio-content-row">
-                <ion-label for="">N° de identificación</ion-label>
-                <ion-input type="text" [(ngModel)]="pedido_data.remitente.identificacion" name="remitenteID"></ion-input>
+                <ion-label for="">Dirección</ion-label>
+                <ion-input type="text" [(ngModel)]="pedido_data.remitente.direccion" name="Direccion"></ion-input>
             </div>
             <div class="envio-content-row-btn">
                 <ion-button class="btnNext" (click)="nextStep()">Siguiente</ion-button>
@@ -37,6 +45,14 @@
             <div class="envio-content-row">
                 <ion-label for="">Nombre</ion-label>
                 <ion-input type="text" [(ngModel)]="pedido_data.destinatario.nombre" name="destinatarioNombre"></ion-input>
+            </div>
+            <div class="envio-content-row">
+                <ion-label for="">Apellido</ion-label>
+                <ion-input type="text" [(ngModel)]="pedido_data.destinatario.apellido" name="destinatarioApellido"></ion-input>
+            </div>
+            <div class="envio-content-row">
+                <ion-label for="">Correo</ion-label>
+                <ion-input type="text" [(ngModel)]="pedido_data.destinatario.email  " name="destinatarioCorreo"></ion-input>
             </div>
             <div class="envio-content-row">
                 <ion-label for="">Teléfono</ion-label>
@@ -97,13 +113,6 @@
             <div class="envio-content-row2">
                 <ion-label for="">Peso en libras</ion-label>
                 <ion-input type="text" [(ngModel)]="nuevo_producto.peso" name="prodPeso"></ion-input>
-            </div>
-            <div class="envio-content-row2">
-                <ion-label for="">Es frágil?</ion-label>
-                <ion-select name="fragil" [(ngModel)]="nuevo_producto.fragil">
-                    <ion-select-option value="si">Sí</ion-select-option>
-                    <ion-select-option value="no">No</ion-select-option>
-                </ion-select>
             </div>
             <div class="envio-content-row2">
                 <ion-label for="">Precio</ion-label>
