@@ -1,5 +1,3 @@
-// src/app/tab1/tab1.page.ts
-
 import { Component } from '@angular/core';
 import { IonImg, IonLabel, IonInput, IonButton, IonSelect, IonSelectOption } from '@ionic/angular/standalone';
 import { FooterComponent } from '../components/footer/footer.component';
@@ -10,7 +8,7 @@ import { Conection } from '../services/conection';
   selector: 'app-tab1',
   templateUrl: 'tab1.page.html',
   styleUrls: ['tab1.page.scss'],
-  imports: [IonButton, IonInput, IonLabel, IonImg, IonSelect, IonSelectOption, FooterComponent, FormsModule],
+  imports: [IonButton, IonInput, IonLabel, IonImg, FooterComponent, FormsModule],
 })
 export class Tab1Page {
 
@@ -34,7 +32,9 @@ export class Tab1Page {
       id_remitente: 0,
       nombre: '',
       telefono: '',
-      identificacion: ''
+      direccion: '',
+      email: '',
+      apellido: '',
     },
 
     destinatario: {
@@ -45,11 +45,17 @@ export class Tab1Page {
       direccion_completa: '',
       cp: '',
       ciudad_completa: '',
-      horario: '',      
+      horario: '',   
+      email: '',
+      apellido: '',   
     },
     
     products:[
-      { nombre: 'Tortillas', peso: 20, costo: 200, fragil: true },
+      { nombre: '',
+        peso: 0, 
+        costo: 0, 
+        fragil: true 
+      },
     ]
   }
 
@@ -65,7 +71,7 @@ export class Tab1Page {
       nombre: this.nuevo_producto.nombre,
       peso: Number(this.nuevo_producto.peso),
       costo: Number(this.nuevo_producto.costo),
-      fragil: this.nuevo_producto.fragil === 'si' ? true : false
+      fragil: this.nuevo_producto.fragil === 'si' ? true : false,
     };
 
     this.pedido_data.products.push(productoAgregado);

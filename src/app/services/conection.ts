@@ -22,13 +22,27 @@ export class Conection {
   }
 
   createPedido(pedidoData: any): Observable<any>{
-    const crearRemitente = this.http.post(`${this.apiUrl}/envios`, pedidoData.remitente).pipe(
+    const remitentePayLoad = {
+      nombre: pedidoData.remitente.nombre,
+      telefono: pedidoData.remitente.telefono,
+      direccion: pedidoData.remitente.direccion,
+      email: pedidoData.remitente.email,
+      apellido: pedidoData.remitente.apellido,
+    }
+    const crearRemitente = this.http.post(`${this.apiUrl}/remitentes`, remitentePayLoad).pipe(
       map((res: any) => res.id_remitente)
     );
 
     return crearRemitente.pipe(
       switchMap((idRemitente: number) => {
-        return this.http.post(`${this.apiUrl}/pedidos`, pedidoData.destinatario).pipe(
+        const destinatarioPayLoad = {
+          nombre: pedidoData.destinatario.nombre,
+          apellido: pedidoData.destinatario.apellido,
+          telefono: pedidoData.destinatario.telefono,
+          email: pedidoData.destinatario.email,
+          direccion: pedidoData.destinatario.direccion_completa,
+        }
+        return this.http.post(`${this.apiUrl}/destinatario`, destinatarioPayLoad).pipe(
           map((res: any) => ({
             idRemitente: idRemitente,
             idDestinatario: res.id_destinatario,
@@ -37,16 +51,17 @@ export class Conection {
       }),
       switchMap(ids =>{
         const pedidoPayLoad = pedidoData.products.map((producto: any) => {
-          const costo = Number(producto.costo);
+          const costo = Number(producto.costo || 0);
           const cantidad = 1;
 
           return{
-            nombre: producto.nombre,
+            descripcion: producto.nombre,
+            tipo_producto: 'OTRO',
             cantidad: cantidad,
-            peso: Number(producto.peso || 0),
+            peso_libras: Number(producto.peso || 0),
             precio_unitario: costo,
-            subtotal: costo * cantidad,
-            fragil: producto.fragil,
+            valor_declarado: costo,
+            subtotal: Number(producto.costo * cantidad),
           };
         });
 
@@ -57,12 +72,12 @@ export class Conection {
           origen:'MX',
           destino:'US',
           tipo_cobro:'MX',
-          precioTotal:pedidoData.total,
+          precio_total:Number(pedidoData.total || 0),
           estado_envio:'RECIBIDO_NUEVO',
-          firma_remitente:false,
+          firma_remitente: false,
           
           
-          productos: pedidoPayLoad,
+          mercancias: pedidoPayLoad,
         };
         return this.http.post(`${this.apiUrl}/envios`, envioPayLoad);
       })
