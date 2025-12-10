@@ -3,6 +3,8 @@ import { IonImg, IonLabel, IonInput, IonButton, IonSelect, IonSelectOption } fro
 import { FooterComponent } from '../components/footer/footer.component';
 import { FormsModule } from '@angular/forms';
 import { Conection } from '../services/conection';
+import { Ubicacion } from '../services/ubicacion';
+import { Geolocation } from '@capacitor/geolocation';
 
 @Component({
   selector: 'app-tab1',
@@ -13,8 +15,12 @@ import { Conection } from '../services/conection';
 export class Tab1Page {
 
   constructor(
-    private conection: Conection
-  ) {}
+    public conection: Conection,
+  ) {
+  }
+  ngOnInit(){
+    this.conection.getUbicacion().catch(()=>{});
+  }
   step = 1;
 
   nuevo_producto ={
@@ -88,6 +94,7 @@ export class Tab1Page {
     this.conection.createPedido(this.pedido_data).subscribe({
       next: (response: any) =>{
         console.log('Envío registrado con éxito', response);
+        this.resetFormData();
         this.step = 5;
       },
       error: (error: any) =>{
@@ -95,5 +102,41 @@ export class Tab1Page {
         alert('Error al procesar el envío');
       }
     });
+
+  }
+
+  resetFormData() {
+    this.pedido_data = {
+      total: 0,
+      remitente: {
+        id_remitente: 0,
+        nombre: '',
+        telefono: '',
+        direccion: '',
+        email: '',
+        apellido: '',
+      },
+      destinatario: {
+        id_destinatario: 0,
+        nombre: '',
+        telefono: '',
+        ciudad: '',
+        direccion_completa: '',
+        cp: '',
+        ciudad_completa: '',
+        horario: '',
+        email: '',
+        apellido: '',
+      },
+      products: [
+      ],
+    };
+
+    this.nuevo_producto = {
+      nombre: '',
+      peso: '',
+      costo: '',
+      fragil: 'no',
+    };
   }
 }
