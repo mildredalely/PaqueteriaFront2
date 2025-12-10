@@ -122,18 +122,28 @@ export class Conection {
       })
     );
   }
-  // Obtener todos los envíos
-getEnvios(): Observable<any> {
-  return this.http.get(`${this.apiUrl}/envios`);
+  getEnvios(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/envios`);
+  }
+
+  getEnviosByRemitente(idRemitente: number): Observable<any> {
+    return this.http.get(`${this.apiUrl}/envios/remitente/${idRemitente}`);
+  }
+
+  getEnvioById(idEnvio: number): Observable<any> {
+    return this.http.get(`${this.apiUrl}/envios/${idEnvio}`);
+  }
+
+  actualizarEstadoEnvio(idEnvio: number, nuevoEstado: string): Observable<any> {
+    return this.http.patch(`${this.apiUrl}/envios/${idEnvio}`, {
+      estado_envio: nuevoEstado
+    });
+  }
+
+  actualizarEnvio(idEnvio: number, datosActualizados: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/envios/${idEnvio}`, datosActualizados);
+  }
+
 }
 
-// Obtener envíos por remitente (si necesitas filtrar)
-getEnviosByRemitente(idRemitente: number): Observable<any> {
-  return this.http.get(`${this.apiUrl}/envios/remitente/${idRemitente}`);
-}
 
-// Obtener un envío específico por ID
-getEnvioById(idEnvio: number): Observable<any> {
-  return this.http.get(`${this.apiUrl}/envios/${idEnvio}`);
-}
-}
