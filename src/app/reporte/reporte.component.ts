@@ -35,14 +35,6 @@ export class ReporteComponent implements OnInit {
   }
 
 
-<<<<<<< HEAD
-        // 2. Filtrar: Nos quedamos solo con los envíos que coincidan con la fecha de hoy
-        const enviosDeHoy = listaEnvios.filter(envio => {
-          // Buscamos el campo de fecha. Si tu base de datos usa 'createdAt', 'fecha_envio', etc.
-          // El backend suele devolver fechas en formato ISO: "2023-12-04T10:30:00.000Z"
-          const fechaRegistro = envio.fecha_envio || envio.createdAt || envio.created_at || '';
-          return fechaRegistro.toString().startsWith(hoyString);
-=======
 cargarEnviosDelDia() {
     this.conectionService.getEnvios().subscribe({
       next: (listaEnvios: any[]) => {
@@ -58,7 +50,6 @@ cargarEnviosDelDia() {
           // Convertimos y comparamos
           const fechaEnvioLocal = new Date(fechaString).toLocaleDateString();
           return fechaEnvioLocal === fechaHoyLocal;
->>>>>>> e8ddc369d79e9967b8415c93d2de1f9ba68b1089
         });
 
         // Asignamos los datos
