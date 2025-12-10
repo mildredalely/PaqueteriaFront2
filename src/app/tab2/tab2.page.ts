@@ -11,7 +11,7 @@ import { ExploreContainerComponent } from '../explore-container/explore-containe
   templateUrl: 'tab2.page.html',
   styleUrls: ['tab2.page.scss'],
   standalone: true,
-  imports: [CommonModule, IonicModule, HistorialPage,ExploreContainerComponent,]
+  imports: [CommonModule, IonicModule, HistorialPage]
 })
 export class Tab2Page {
   constructor() {}

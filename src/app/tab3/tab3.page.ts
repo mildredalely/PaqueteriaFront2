@@ -7,7 +7,7 @@ import { FooterComponent } from '../components/footer/footer.component';
   selector: 'app-tab3',
   templateUrl: 'tab3.page.html',
   styleUrls: ['tab3.page.scss'],
-  imports: [ReporteComponent, FooterComponent],
+  imports: [ReporteComponent],
 })
 export class Tab3Page {
   constructor() {}
