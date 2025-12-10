@@ -4,12 +4,13 @@ import { IonicModule, AlertController } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 import { FooterComponent } from '../components/footer/footer.component';
 import { CommonModule } from '@angular/common';
-
+import { addIcons } from 'ionicons';
+import { arrowBackCircleOutline } from 'ionicons/icons';
 
 @Component({
   selector: 'app-caja',
   standalone: true,
-  imports: [IonicModule, FormsModule,FooterComponent, CommonModule],
+  imports: [IonicModule, FormsModule, FooterComponent, CommonModule],
   templateUrl: './caja.component.html',
   styleUrls: ['./caja.component.scss'],
 })
@@ -18,50 +19,62 @@ export class CajaComponent implements OnInit {
   efectivoCaja: number | null = null;
   totalEsperado: number = 0;
   correo: string = '';
+  
+  datosRecibidos: any = null;
 
-  constructor(private router: Router, private alertCtrl: AlertController) {}
+  constructor(private router: Router, private alertCtrl: AlertController) {
+    addIcons({ arrowBackCircleOutline });
+  }
 
   ngOnInit() {
-    // RECUPERAR EL DATO: Leemos lo que guardó la pantalla de Reporte
-    const totalGuardado = localStorage.getItem('totalDia');
     
-    // Si existe, lo convertimos a número, si no, es 0
-    this.totalEsperado = totalGuardado ? Number(totalGuardado) : 0;
+  }
+
+
+  // Esta función se ejecuta CADA VEZ que entras a la pantalla
+  ionViewWillEnter() {
+    this.cargarDatosDelReporte();
+  }
+
+  cargarDatosDelReporte() {
+    console.log(' Entrando a pantalla de Caja, leyendo datos...');
+    const datosGuardados = localStorage.getItem('datosCierre');
     
-    console.log("Total recibido del reporte:", this.totalEsperado);
+    if (datosGuardados) {
+      this.datosRecibidos = JSON.parse(datosGuardados);
+      this.totalEsperado = this.datosRecibidos.total || 0;
+      
+      console.log("Datos actualizados:", this.totalEsperado);
+    } else {
+      this.totalEsperado = 0;
+    }
   }
 
   volver() {
-    this.router.navigate(['/reporte']); // Ajusta la ruta si es necesario
+    this.router.navigate(['/reporte']);
   }
 
-  // Esta función calcula la diferencia para mostrarla en pantalla
   get diferencia(): number {
     return (this.efectivoCaja || 0) - this.totalEsperado;
   }
 
   async cerrarTurno() {
-    // 1. Validar que haya escrito algo
     if (this.efectivoCaja === null) {
       return this.showAlert("Campo vacío", "Por favor ingresa cuánto efectivo tienes en caja.");
     }
 
-    // 2. VALIDACIÓN PRINCIPAL: ¿Coinciden los montos?
-    // Usamos Math.abs() < 1 para permitir diferencias de centavos insignificantes
     if (Math.abs(this.diferencia) > 1) {
       return this.showAlert("⚠ Descuadre de Caja", `El efectivo no coincide. Tienes una diferencia de $${this.diferencia.toFixed(2)}`);
     }
 
-    // 3. Validar correo
     if (!this.correo || !this.correo.includes('@')) {
       return this.showAlert("Correo inválido", "Ingresa un correo válido para enviar el reporte.");
     }
 
-    // 4. Confirmación de éxito
     const alert = await this.alertCtrl.create({
       header: "Caja Cuadrada ",
       message: `El monto coincide correctamente. ¿Enviar reporte a ${this.correo}?`,
-      cssClass: "alerto-animado",
+      cssClass: "alerta-animada",
       buttons: [
         { text: "Cancelar", role: "cancel" },
         { text: "Enviar", handler: () => this.enviarCorreo() }
@@ -71,11 +84,29 @@ export class CajaComponent implements OnInit {
     await alert.present();
   }
 
-  enviarCorreo() {
-    console.log("Enviando correo...", this.correo);
-    this.showAlert("Éxito", "Reporte enviado y turno cerrado.");
-    // Aquí podrías limpiar el localStorage y volver al inicio
-    // localStorage.removeItem('totalDia');
+ async enviarCorreo() {
+    // Simulación de envío
+    console.log("Enviando reporte completo a:", this.correo);
+    
+    // Creamos una alerta personalizada con navegación
+    const alert = await this.alertCtrl.create({
+      header: "Éxito",
+      message: "Reporte enviado y turno cerrado correctamente.",
+      buttons: [
+        {
+          text: "OK",
+          handler: () => {
+           
+            localStorage.removeItem('datosCierre');
+
+           
+            this.router.navigate(['/login']); 
+          }
+        }
+      ]
+    });
+
+    await alert.present();
   }
 
   async showAlert(titulo: string, mensaje: string) {
