@@ -1,11 +1,10 @@
-
 .historial-container {
-  height: 100%;
+  min-height: 100%; /* Cambiado de height a min-height para mejor scroll */
   background: linear-gradient(180deg, #FFFFFF 0%, #F8F9FA 100%);
   position: relative;
   display: flex;
   flex-direction: column;
-  padding-bottom: 80px;
+  padding-bottom: 20px; /* Reducido de 80px a 20px ya que ahora usas ion-footer */
   padding-top: 0;
   margin-top: 0;
 }
@@ -93,6 +92,8 @@
   z-index: 100;
   transition: all 0.3s ease;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  /* Propiedad para mejorar la respuesta al tacto */
+  touch-action: manipulation;
   
   .arrow-icon {
     font-size: 40px;
@@ -116,13 +117,17 @@
     }
   }
   
-  &:not(:disabled):hover {
-    background: #0B6C8C;
-    transform: translateY(-50%) scale(1.1);
-    box-shadow: 0 6px 16px rgba(11, 108, 140, 0.4);
-    
-    .arrow-icon {
-      color: #FFFFFF;
+  /* MEJORA: El hover solo se aplica si el dispositivo soporta hover (Mouse) 
+     Esto evita que el botón se quede "pegado" en color oscuro en móviles */
+  @media (hover: hover) {
+    &:not(:disabled):hover {
+      background: #0B6C8C;
+      transform: translateY(-50%) scale(1.1);
+      box-shadow: 0 6px 16px rgba(11, 108, 140, 0.4);
+      
+      .arrow-icon {
+        color: #FFFFFF;
+      }
     }
   }
 }
@@ -231,7 +236,7 @@
   border: none;
   font-size: 16px;
   font-weight: 600;
-  cursor: default;
+  cursor: pointer; /* Cambiado a pointer para indicar interactividad */
   transition: all 0.3s ease;
   display: flex;
   align-items: center;
@@ -241,6 +246,12 @@
   
   ion-icon {
     font-size: 20px;
+  }
+
+  /* Efecto de presión en móvil */
+  &:active {
+    transform: scale(0.98);
+    filter: brightness(0.9);
   }
 }
 
@@ -287,16 +298,19 @@
     font-size: 20px;
   }
   
-  &:hover {
-    background-color: #0B6C8C;
-    color: #FFFFFF;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(11, 108, 140, 0.3);
+  @media (hover: hover) {
+    &:hover {
+      background-color: #0B6C8C;
+      color: #FFFFFF;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(11, 108, 140, 0.3);
+    }
   }
   
   &:active {
     transform: translateY(0);
     box-shadow: 0 2px 4px rgba(11, 108, 140, 0.2);
+    background-color: rgba(11, 108, 140, 0.1); /* Feedback visual táctil */
   }
 }
 
