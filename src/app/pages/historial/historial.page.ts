@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IonicModule } from '@ionic/angular';
+import { IonicModule, AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { FooterComponent } from "src/app/components/footer/footer.component";
 import { Conection } from 'src/app/services/conection';
@@ -33,7 +33,8 @@ export class HistorialPage implements OnInit {
 
   constructor(
     private router: Router,
-    private conectionService: Conection
+    private conectionService: Conection,
+    private alertController: AlertController
   ) { }
 
   ngOnInit() {
@@ -113,6 +114,78 @@ ${envioBackend.destinatario.direccion || ''}` : 'Sin información';
     const año = date.getFullYear();
 
     return `${dia}/${mes}/${año}`;
+  }
+
+  async cambiarEstadoEnvio(envio: Envio) {
+    const alert = await this.alertController.create({
+      header: 'Cambiar Estado',
+      message: `Estado actual: ${this.getEstadoTexto(envio.estado)}`,
+      inputs: [
+        {
+          type: 'radio',
+          label: 'Recibido',
+          value: 'RECIBIDO',
+          checked: envio.estado === 'recibido'
+        },
+        {
+          type: 'radio',
+          label: 'Enviado',
+          value: 'ENVIADO',
+          checked: envio.estado === 'enviado'
+        },
+        {
+          type: 'radio',
+          label: 'En Tránsito',
+          value: 'EN_TRANSITO',
+          checked: envio.estado === 'en-transito'
+        },
+        {
+          type: 'radio',
+          label: 'Completado',
+          value: 'COMPLETADO',
+          checked: envio.estado === 'completado'
+        }
+      ],
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel'
+        },
+        {
+          text: 'Actualizar',
+          handler: (nuevoEstado) => {
+            if (nuevoEstado && envio.id_envio) {
+              this.actualizarEstado(envio.id_envio, nuevoEstado);
+            }
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  actualizarEstado(idEnvio: number, nuevoEstado: string) {
+    this.conectionService.actualizarEstadoEnvio(idEnvio, nuevoEstado).subscribe({
+      next: (response) => {
+        console.log('Estado actualizado:', response);
+        this.mostrarMensaje('Estado actualizado correctamente', 'success');
+        this.cargarEnvios();
+      },
+      error: (error) => {
+        console.error('Error al actualizar estado:', error);
+        this.mostrarMensaje('Error al actualizar el estado', 'danger');
+      }
+    });
+  }
+
+  async mostrarMensaje(mensaje: string, color: string) {
+    const alert = await this.alertController.create({
+      message: mensaje,
+      buttons: ['OK'],
+      cssClass: color
+    });
+    await alert.present();
   }
 
   nextSlide() {

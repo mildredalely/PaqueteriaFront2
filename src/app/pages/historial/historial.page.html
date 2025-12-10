@@ -72,7 +72,8 @@
 
                 <button 
                   class="estado-button" 
-                  [ngClass]="'estado-' + envio.estado">
+                  [ngClass]="'estado-' + envio.estado"
+                  (click)="cambiarEstadoEnvio(envio)">
                   <ion-icon name="checkmark-circle-outline"></ion-icon>
                   {{ getEstadoTexto(envio.estado) }}
                 </button>
