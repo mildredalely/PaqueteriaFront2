@@ -1,12 +1,23 @@
 <div class="wrap">
     <ion-img class="img1" src="assets/Path_15.png"></ion-img>
-    @if (step == 1) {
-    <h1>GENERAR ENVÍO DE MÉXICO A EEUU.</h1>
-    }@else if (step== 3){
-    <h3 style="visibility: hidden;">GENERAR ENVÍO DE MÉXICO A EEUU.</h3>
-    }@else{
-    <h1 style="visibility: hidden;">GENERAR ENVÍO DE MÉXICO A EEUU.</h1>
+    @if (conection.paisActual == 'México') {
+        @if (step == 1) {
+            <h1>GENERAR ENVÍO DE MÉXICO A EEUU.</h1>
+        }@else if (step== 3){
+            <h3 style="visibility: hidden;">GENERAR ENVÍO DE MÉXICO A EEUU.</h3>
+        }@else{
+            <h1 style="visibility: hidden;">GENERAR ENVÍO DE MÉXICO A EEUU.</h1>
+        }
+    }@else {
+        @if (step == 1) {
+            <h1>GENERAR ENVÍO DE EEUU. A MÉXICO</h1>
+        }@else if (step== 3){
+            <h3 style="visibility: hidden;">GENERAR ENVÍO DE EEUU. A MÉXICO</h3>
+        }@else{
+            <h1 style="visibility: hidden;">GENERAR ENVÍO DE EEUU. A MÉXICO</h1>
+        }
     }
+
 
     @if (step == 1) {
     <div class="envio-content">

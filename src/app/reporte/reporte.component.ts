@@ -48,7 +48,7 @@ export class ReporteComponent implements OnInit {
         const enviosDeHoy = listaEnvios.filter(envio => {
           // Buscamos el campo de fecha. Si tu base de datos usa 'createdAt', 'fecha_envio', etc.
           // El backend suele devolver fechas en formato ISO: "2023-12-04T10:30:00.000Z"
-          const fechaRegistro = envio.fecha || envio.createdAt || envio.created_at || '';
+          const fechaRegistro = envio.fecha_envio || envio.createdAt || envio.created_at || '';
           return fechaRegistro.toString().startsWith(hoyString);
         });
 
