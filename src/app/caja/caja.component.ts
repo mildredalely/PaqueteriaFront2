@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { IonicModule, AlertController, LoadingController } from '@ionic/angular';
+import { IonicModule, AlertController, LoadingController, ModalController } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 import { FooterComponent } from '../components/footer/footer.component';
 import { CommonModule } from '@angular/common';
 import { addIcons } from 'ionicons';
-import { arrowBackCircleOutline } from 'ionicons/icons';
+import { arrowBackCircleOutline, documentTextOutline } from 'ionicons/icons';
 import { jsPDF } from 'jspdf';
+import { PdfPreviewComponent } from '../components/pdf-preview/pdf-preview.component'; // <--- VERIFICA ESTA RUT
 
 @Component({
   selector: 'app-caja',
@@ -24,9 +25,10 @@ export class CajaComponent implements OnInit {
   constructor(
     private router: Router, 
     private alertCtrl: AlertController,
-    private loadingCtrl: LoadingController
+    private loadingCtrl: LoadingController,
+    private modalCtrl: ModalController
   ) {
-    addIcons({ arrowBackCircleOutline });
+    addIcons({ arrowBackCircleOutline, documentTextOutline });
   }
 
   ionViewWillEnter() {
@@ -63,15 +65,14 @@ export class CajaComponent implements OnInit {
       return this.showAlert("⚠ Descuadre", `El efectivo no coincide. Diferencia: $${this.diferencia.toFixed(2)}`);
     }
 
-    // Alerta de confirmación cambiada para PDF
     const alert = await this.alertCtrl.create({
-      header: "Caja Correcta ",
-      message: "¿Deseas descargar el reporte PDF y cerrar el turno?",
+      header: "Caja Correcta",
+      message: "¿Generar reporte y visualizar?",
       buttons: [
         { text: "Cancelar", role: "cancel" },
         { 
-          text: "Descargar y Cerrar", 
-          handler: () => this.generarYDescargarPDF() 
+          text: "Generar", 
+          handler: () => this.generarYPrevisualizarPDF() 
         }
       ]
     });
@@ -79,20 +80,19 @@ export class CajaComponent implements OnInit {
     await alert.present();
   }
 
-
-  async generarYDescargarPDF() {
-    const loading = await this.loadingCtrl.create({ message: 'Generando PDF...' });
+  async generarYPrevisualizarPDF() {
+    const loading = await this.loadingCtrl.create({ message: 'Generando vista previa...' });
     await loading.present();
 
     try {
       const doc = new jsPDF();
       const margenIzq = 20;
-      let y = 20; // Posición vertical (eje Y), irá aumentando para bajar de renglón
+      let y = 20;
 
-      // --- ENCABEZADO ---
+      // --- DISEÑO DEL PDF ---
       doc.setFontSize(18);
-      doc.setTextColor(14, 107, 168); // Azul corporativo (RGB)
-      doc.text("REPORTE DE CIERRE DE CAJA", 105, y, { align: "center" }); // 105 es el centro de la hoja
+      doc.setTextColor(14, 107, 168);
+      doc.text("REPORTE DE CIERRE DE CAJA", 105, y, { align: "center" });
       y += 10;
 
       doc.setFontSize(10);
@@ -100,22 +100,19 @@ export class CajaComponent implements OnInit {
       doc.text(`Fecha de impresión: ${new Date().toLocaleString()}`, 105, y, { align: "center" });
       y += 15;
 
-      // Línea separadora
       doc.setDrawColor(200);
       doc.line(margenIzq, y, 190, y);
       y += 10;
 
-      // --- DETALLE DEL SISTEMA ---
       doc.setFontSize(14);
       doc.setTextColor(0);
       doc.text("Resumen del Sistema", margenIzq, y);
       y += 10;
 
       doc.setFontSize(12);
-      // Función auxiliar para escribir filas rápido
       const fila = (label: string, valor: string) => {
         doc.text(label, margenIzq, y);
-        doc.text(valor, 190, y, { align: "right" }); // Alineado a la derecha
+        doc.text(valor, 190, y, { align: "right" });
         y += 8;
       };
 
@@ -124,15 +121,14 @@ export class CajaComponent implements OnInit {
       fila("Salidas/Gastos:", `- $ ${Number(this.datosRecibidos?.salidas || 0).toFixed(2)}`);
       
       y += 5;
-      doc.setFont('helvetica', 'bold'); // Negritas
+      doc.setFont('helvetica', 'bold');
       fila("TOTAL ESPERADO:", `$ ${this.totalEsperado.toFixed(2)}`);
-      doc.setFont('helvetica', 'normal'); // Normal
+      doc.setFont('helvetica', 'normal');
 
       y += 10;
       doc.line(margenIzq, y, 190, y);
       y += 10;
 
-      // --- VALIDACIÓN DE CAJA ---
       doc.setFontSize(14);
       doc.text("Arqueo de Caja (Real)", margenIzq, y);
       y += 10;
@@ -140,39 +136,61 @@ export class CajaComponent implements OnInit {
       doc.setFontSize(12);
       fila("Efectivo Reportado:", `$ ${(this.efectivoCaja || 0).toFixed(2)}`);
       
-      // Color condicional para la diferencia
       if (this.diferencia === 0) {
-        doc.setTextColor(0, 128, 0); // Verde
+        doc.setTextColor(0, 128, 0);
         fila("Estado:", "CUADRADO PERFECTO");
       } else {
-        doc.setTextColor(255, 0, 0); // Rojo
+        doc.setTextColor(255, 0, 0);
         fila("Diferencia:", `$ ${this.diferencia.toFixed(2)}`);
       }
 
+      // --- FIN DISEÑO ---
+
       const nombreArchivo = `Cierre_${new Date().toLocaleDateString().replace(/\//g, '-')}.pdf`;
-      doc.save(nombreArchivo);
+
+      // GENERAR BLOB (Archivo en memoria)
+      const pdfBlob = doc.output('blob');
 
       await loading.dismiss();
 
-      // --- FINALIZAR PROCESO ---
-      const alert = await this.alertCtrl.create({
-        header: "¡Descargado! ",
-        message: "El PDF se ha guardado en tu dispositivo.",
-        buttons: [{
-          text: "Salir al Login",
-          handler: () => {
-            localStorage.removeItem('datosCierre');
-            this.router.navigate(['/login']);
-          }
-        }]
+      // ABRIR MODAL
+      const modal = await this.modalCtrl.create({
+        component: PdfPreviewComponent,
+        componentProps: {
+          pdfBlob: pdfBlob,
+          fileName: nombreArchivo
+        }
       });
-      await alert.present();
+
+      await modal.present();
+
+      // Cuando se cierra el modal, preguntamos si quiere salir
+      await modal.onDidDismiss();
+      this.preguntarSalida();
 
     } catch (error) {
       await loading.dismiss();
       console.error(error);
       this.showAlert("Error", "No se pudo generar el PDF.");
     }
+  }
+
+  async preguntarSalida() {
+    const alert = await this.alertCtrl.create({
+      header: "Proceso finalizado",
+      message: "¿Deseas cerrar sesión?",
+      buttons: [
+        { text: "No", role: "cancel" },
+        { 
+          text: "Sí, Salir", 
+          handler: () => {
+            localStorage.removeItem('datosCierre');
+            this.router.navigate(['/login']);
+          }
+        }
+      ]
+    });
+    await alert.present();
   }
 
   async showAlert(titulo: string, mensaje: string) {

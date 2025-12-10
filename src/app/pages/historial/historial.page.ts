@@ -117,52 +117,78 @@ ${envioBackend.destinatario.direccion || ''}` : 'Sin información';
   }
 
   async cambiarEstadoEnvio(envio: Envio) {
-    const alert = await this.alertController.create({
-      header: 'Cambiar Estado',
-      message: `Estado actual: ${this.getEstadoTexto(envio.estado)}`,
-      inputs: [
-        {
-          type: 'radio',
-          label: 'Recibido',
-          value: 'RECIBIDO',
-          checked: envio.estado === 'recibido'
-        },
-        {
-          type: 'radio',
-          label: 'Enviado',
-          value: 'ENVIADO',
-          checked: envio.estado === 'enviado'
-        },
-        {
-          type: 'radio',
-          label: 'En Tránsito',
-          value: 'EN_TRANSITO',
-          checked: envio.estado === 'en-transito'
-        },
-        {
-          type: 'radio',
-          label: 'Completado',
-          value: 'COMPLETADO',
-          checked: envio.estado === 'completado'
-        }
-      ],
-      buttons: [
-        {
-          text: 'Cancelar',
-          role: 'cancel'
-        },
-        {
-          text: 'Actualizar',
-          handler: (nuevoEstado) => {
-            if (nuevoEstado && envio.id_envio) {
-              this.actualizarEstado(envio.id_envio, nuevoEstado);
+    console.log('Botón clickeado - Envío:', envio);
+    
+    if (!envio.id_envio) {
+      await this.mostrarMensaje('Error: ID de envío no disponible', 'danger');
+      return;
+    }
+
+    try {
+      const alert = await this.alertController.create({
+        header: 'Cambiar Estado',
+        subHeader: `Envío #${envio.id_envio}`,
+        message: `Estado actual: ${this.getEstadoTexto(envio.estado)}`,
+        cssClass: 'custom-alert',
+        mode: 'ios',
+        inputs: [
+          {
+            type: 'radio',
+            label: 'Recibido',
+            value: 'RECIBIDO',
+            checked: envio.estado === 'recibido'
+          },
+          {
+            type: 'radio',
+            label: 'Enviado',
+            value: 'ENVIADO',
+            checked: envio.estado === 'enviado'
+          },
+          {
+            type: 'radio',
+            label: 'En Tránsito',
+            value: 'EN_TRANSITO',
+            checked: envio.estado === 'en-transito'
+          },
+          {
+            type: 'radio',
+            label: 'Completado',
+            value: 'COMPLETADO',
+            checked: envio.estado === 'completado'
+          }
+        ],
+        buttons: [
+          {
+            text: 'Cancelar',
+            role: 'cancel',
+            cssClass: 'alert-button-cancel',
+            handler: () => {
+              console.log('Usuario canceló');
+            }
+          },
+          {
+            text: 'Actualizar',
+            cssClass: 'alert-button-confirm',
+            handler: (nuevoEstado) => {
+              console.log('Nuevo estado seleccionado:', nuevoEstado);
+              if (nuevoEstado && envio.id_envio) {
+                this.actualizarEstado(envio.id_envio, nuevoEstado);
+                return true;
+              } else {
+                this.mostrarMensaje('Por favor selecciona un estado', 'warning');
+                return false;
+              }
             }
           }
-        }
-      ]
-    });
+        ]
+      });
 
-    await alert.present();
+      await alert.present();
+      console.log('Alert presentado');
+    } catch (error) {
+      console.error('Error al mostrar alert:', error);
+      await this.mostrarMensaje('Error al mostrar opciones', 'danger');
+    }
   }
 
   actualizarEstado(idEnvio: number, nuevoEstado: string) {
