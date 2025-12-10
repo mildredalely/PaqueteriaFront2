@@ -4,19 +4,19 @@ import { Router } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { FooterComponent } from '../components/footer/footer.component';
 import { FormsModule } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
+
+import { Conection } from 'src/app/services/conection'; 
+
 @Component({
   selector: 'app-reporte',
   templateUrl: './reporte.component.html',
   styleUrls: ['./reporte.component.scss'],
   standalone: true,
-  // Importante: HttpClientModule debe estar aquí para que funcione la petición
-  imports: [IonicModule, CommonModule, FooterComponent, FormsModule, ],
+  imports: [IonicModule, CommonModule, FooterComponent, FormsModule],
 })
 export class ReporteComponent implements OnInit {
 
   // Datos para mostrar en pantalla
- 
   fechaHoy: Date = new Date();
 
   pedidos: number = 0;
@@ -24,12 +24,10 @@ export class ReporteComponent implements OnInit {
   salidas: number = 0; 
   total: number = 0;
 
-  // URL directa a tu backend en Railway
-  private apiUrl = 'https://paqueteriaback-production.up.railway.app/envios';
-
   constructor(
     private router: Router,
-    private http: HttpClient // Inyectamos el cliente HTTP
+    // 2. Inyectamos tu servicio en lugar de usar HttpClient directamente aquí
+    private conectionService: Conection 
   ) { }
 
   ngOnInit() {
@@ -52,31 +50,28 @@ export class ReporteComponent implements OnInit {
           return fechaRegistro.toString().startsWith(hoyString);
         });
 
-        // 3. Contar cuántos pedidos hubo hoy
+        // Asignamos los datos
         this.pedidos = enviosDeHoy.length;
-
-        // 4. Sumar el dinero (campo precio_total)
-        this.ingresos = enviosDeHoy.reduce((suma, envio) => {
+        
+        this.ingresos = enviosDeHoy.reduce((suma: number, envio: any) => {
           return suma + (Number(envio.precio_total) || 0);
         }, 0);
 
-        // 5. Calcular el balance inicial
         this.calcularTotal();
       },
       error: (error) => {
-        console.error('Error al conectar con el servidor:', error);
-        // Opcional: Mostrar un mensaje si falla
+        console.error('Error al cargar envíos:', error);
       }
     });
   }
 
-  // Se ejecuta cada vez que cambias el valor de "Salidas"
+
+
   calcularTotal() {
     this.total = this.ingresos - this.salidas;
   }
 
   imprimir() {
-    // Preparamos todos los datos para enviarlos a la pantalla de Caja (PDF)
     const datosParaReporte = {
       fecha: new Date().toISOString(),
       pedidos: this.pedidos,
@@ -85,10 +80,7 @@ export class ReporteComponent implements OnInit {
       total: this.total
     };
 
-    // Guardamos en la memoria del teléfono/navegador
     localStorage.setItem('datosCierre', JSON.stringify(datosParaReporte));
-    
-    // Navegamos a la pantalla de cierre de caja
     this.router.navigate(['caja']);
   }
 }

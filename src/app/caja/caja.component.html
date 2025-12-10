@@ -48,19 +48,13 @@
 
         <br>
 
-        <!-- Correo -->
-        <div class="fila-input">
-          <label class="label">Correo para enviar reporte</label>
-          <input type="email" [(ngModel)]="correo" class="input-caja" placeholder="correo@ejemplo.com">
-        </div>
+        
 
         <!-- Botón enviar -->
-        <div class="btn-imprimir-container">
-          <ion-button color="primary" shape="round" size="small" (click)="cerrarTurno()">
-            Validar y Enviar
-          </ion-button>
-        </div>
-
+        <ion-button color="primary" shape="round" size="small" (click)="cerrarTurno()">
+  <ion-icon name="document-text-outline" slot="start"></ion-icon>
+  Validar y Descargar PDF
+</ion-button>
       </div>
     </div>
   </div>
