@@ -83,4 +83,19 @@ export class Conection {
       })
     );
   }
+  // Obtener todos los envíos
+getEnvios(): Observable<any> {
+  return this.http.get(`${this.apiUrl}/envios`);
 }
+
+// Obtener envíos por remitente (si necesitas filtrar)
+getEnviosByRemitente(idRemitente: number): Observable<any> {
+  return this.http.get(`${this.apiUrl}/envios/remitente/${idRemitente}`);
+}
+
+// Obtener un envío específico por ID
+getEnvioById(idEnvio: number): Observable<any> {
+  return this.http.get(`${this.apiUrl}/envios/${idEnvio}`);
+}
+}
+

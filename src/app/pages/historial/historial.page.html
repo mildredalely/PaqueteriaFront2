@@ -11,10 +11,38 @@
       <h1 class="title">HISTORIAL</h1>
     </div>
 
-    <!-- Carrusel de envíos -->
-    <div class="carousel-container">
+    <!-- ========== SPINNER DE CARGA ========== -->
+    <div *ngIf="isLoading" class="loading-container">
+      <ion-spinner name="crescent"></ion-spinner>
+      <p>Cargando envíos...</p>
+    </div>
+
+    <!-- ========== MENSAJE DE ERROR ========== -->
+    <div *ngIf="error && !isLoading" class="error-container">
+      <ion-icon name="alert-circle-outline"></ion-icon>
+      <p>{{ error }}</p>
+      <button class="retry-button" (click)="cargarEnvios()">
+        <ion-icon name="refresh-outline"></ion-icon>
+        Reintentar
+      </button>
+    </div>
+
+    <!-- ========== MENSAJE CUANDO NO HAY ENVÍOS ========== -->
+    <div *ngIf="!isLoading && !error && envios.length === 0" class="no-envios-container">
+      <ion-icon name="cube-outline"></ion-icon>
+      <p>No tienes envíos registrados</p>
+      <p class="subtitle">Tus envíos aparecerán aquí una vez que los registres</p>
+    </div>
+
+    <!-- ========== CARRUSEL DE ENVÍOS ========== -->
+    <div class="carousel-container" *ngIf="!isLoading && !error && envios.length > 0">
+      
       <!-- Botón anterior -->
-      <button class="carousel-btn prev-btn" (click)="prevSlide()" [disabled]="currentIndex === 0">
+      <button 
+        class="carousel-btn prev-btn" 
+        (click)="prevSlide()" 
+        [disabled]="currentIndex === 0"
+        [class.disabled]="currentIndex === 0">
         <span class="arrow-icon">&lt;</span>
       </button>
 
@@ -30,13 +58,25 @@
 
               <div class="card-body">
                 <div class="info-section">
-                  <label>Remitente</label>
+                  <label>
+                    <ion-icon name="person-outline"></ion-icon>
+                    Remitente
+                  </label>
                   <p class="info-text">{{ envio.remitente }}</p>
                 </div>
 
                 <div class="info-section">
-                  <label>Destinatario</label>
+                  <label>
+                    <ion-icon name="location-outline"></ion-icon>
+                    Destinatario
+                  </label>
                   <p class="info-text">{{ envio.destinatario }}</p>
+                </div>
+
+                <!-- Información adicional (opcional) -->
+                <div class="extra-info" *ngIf="envio.origen && envio.destino">
+                  <span class="badge">{{ envio.origen }} → {{ envio.destino }}</span>
+                  <span class="precio" *ngIf="envio.precio_total">${{ envio.precio_total | number:'1.2-2' }}</span>
                 </div>
 
                 <!-- Botón de estado -->
@@ -47,7 +87,7 @@
                   {{ getEstadoTexto(envio.estado) }}
                 </button>
 
-                <!-- Nuevo botón Ver Detalles -->
+                <!-- Botón Ver Detalles -->
                 <button 
                   class="ver-detalles-button" 
                   (click)="verDetalle(envio)">
@@ -61,19 +101,31 @@
       </div>
 
       <!-- Botón siguiente -->
-      <button class="carousel-btn next-btn" (click)="nextSlide()" [disabled]="currentIndex === envios.length - 1">
+      <button 
+        class="carousel-btn next-btn" 
+        (click)="nextSlide()" 
+        [disabled]="currentIndex === envios.length - 1"
+        [class.disabled]="currentIndex === envios.length - 1">
         <span class="arrow-icon">&gt;</span>
       </button>
     </div>
 
-    <!-- Indicadores de puntos -->
-    <div class="carousel-indicators">
+    <!-- ========== INDICADORES DE PUNTOS ========== -->
+    <div class="carousel-indicators" *ngIf="!isLoading && !error && envios.length > 1">
       <span 
         *ngFor="let envio of envios; let i = index" 
         class="indicator-dot" 
         [class.active]="i === currentIndex"
         (click)="goToSlide(i)">
       </span>
+    </div>
+
+    <!-- ========== BOTÓN DE ACTUALIZAR (OPCIONAL) ========== -->
+    <div class="refresh-section" *ngIf="!isLoading && envios.length > 0">
+      <button class="refresh-button" (click)="refrescarEnvios()">
+        <ion-icon name="refresh-outline"></ion-icon>
+        Actualizar
+      </button>
     </div>
 
   </div>
