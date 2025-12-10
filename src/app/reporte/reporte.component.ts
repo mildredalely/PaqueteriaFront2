@@ -1,10 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { IonicModule } from '@ionic/angular';
+import { IonicModule, LoadingController, AlertController } from '@ionic/angular'; // Importar LoadingController y AlertController
 import { FooterComponent } from '../components/footer/footer.component';
 import { FormsModule } from '@angular/forms';
-
+import { HttpClientModule } from '@angular/common/http';
 import { Conection } from 'src/app/services/conection'; 
 
 @Component({
@@ -12,9 +12,11 @@ import { Conection } from 'src/app/services/conection';
   templateUrl: './reporte.component.html',
   styleUrls: ['./reporte.component.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule, FooterComponent, FormsModule],
+  imports: [IonicModule, CommonModule, FooterComponent, FormsModule, HttpClientModule],
 })
 export class ReporteComponent implements OnInit {
+
+  // No necesitamos 'apiUrl' ni 'HttpClient' aquí, usamos el servicio 'Conection'
 
   // Datos para mostrar en pantalla
   fechaHoy: Date = new Date();
@@ -26,26 +28,33 @@ export class ReporteComponent implements OnInit {
 
   constructor(
     private router: Router,
-    // 2. Inyectamos tu servicio en lugar de usar HttpClient directamente aquí
-    private conectionService: Conection 
+    private conectionService: Conection, 
+    private loadingCtrl: LoadingController, 
+    private alertCtrl: AlertController 
   ) { }
 
   ngOnInit() {
     this.cargarEnviosDelDia();
   }
 
-  cargarEnviosDelDia() {
-    // Petición GET al backend
-    this.http.get<any[]>(this.apiUrl).subscribe({
-      next: (listaEnvios) => {
-        // 1. Obtener la fecha de hoy en formato texto (YYYY-MM-DD) para comparar
-        // Nota: .split('T')[0] nos da solo la parte de la fecha, ignorando la hora
+  async cargarEnviosDelDia() {
+    const loading = await this.loadingCtrl.create({ message: 'Calculando reporte...' });
+    await loading.present();
+
+   
+    this.conectionService.getEnvios().subscribe({
+      
+      next: (listaEnvios: any) => { 
+        loading.dismiss();
+
+       
+        const enviosArray = Array.isArray(listaEnvios) ? listaEnvios : listaEnvios.data || [];
+        
         const hoyString = new Date().toISOString().split('T')[0]; 
 
-        // 2. Filtrar: Nos quedamos solo con los envíos que coincidan con la fecha de hoy
-        const enviosDeHoy = listaEnvios.filter(envio => {
-          // Buscamos el campo de fecha. Si tu base de datos usa 'createdAt', 'fecha_envio', etc.
-          // El backend suele devolver fechas en formato ISO: "2023-12-04T10:30:00.000Z"
+        // Filtrar envíos de hoy
+        const enviosDeHoy = enviosArray.filter((envio: any) => {
+          // Asegúrate que uno de estos campos exista en tus datos
           const fechaRegistro = envio.fecha_envio || envio.createdAt || envio.created_at || '';
           return fechaRegistro.toString().startsWith(hoyString);
         });
@@ -53,19 +62,21 @@ export class ReporteComponent implements OnInit {
         // Asignamos los datos
         this.pedidos = enviosDeHoy.length;
         
+        // Calculamos ingresos
         this.ingresos = enviosDeHoy.reduce((suma: number, envio: any) => {
+          // Usamos 'precio_total' si es el campo correcto para el ingreso
           return suma + (Number(envio.precio_total) || 0);
         }, 0);
 
         this.calcularTotal();
       },
-      error: (error) => {
+      error: (error: any) => {
+        loading.dismiss();
         console.error('Error al cargar envíos:', error);
+        this.showAlert('Error de Conexión', 'No se pudieron obtener los datos del servidor.');
       }
     });
   }
-
-
 
   calcularTotal() {
     this.total = this.ingresos - this.salidas;
@@ -82,5 +93,10 @@ export class ReporteComponent implements OnInit {
 
     localStorage.setItem('datosCierre', JSON.stringify(datosParaReporte));
     this.router.navigate(['caja']);
+  }
+
+  async showAlert(titulo: string, mensaje: string) {
+    const alert = await this.alertCtrl.create({ header: titulo, message: mensaje, buttons: ["OK"] });
+    await alert.present();
   }
 }
