@@ -34,20 +34,22 @@ export class ReporteComponent implements OnInit {
     this.cargarEnviosDelDia();
   }
 
-  cargarEnviosDelDia() {
-    // Petición GET al backend
-    this.http.get<any[]>(this.apiUrl).subscribe({
-      next: (listaEnvios) => {
-        // 1. Obtener la fecha de hoy en formato texto (YYYY-MM-DD) para comparar
-        // Nota: .split('T')[0] nos da solo la parte de la fecha, ignorando la hora
-        const hoyString = new Date().toISOString().split('T')[0]; 
 
-        // 2. Filtrar: Nos quedamos solo con los envíos que coincidan con la fecha de hoy
-        const enviosDeHoy = listaEnvios.filter(envio => {
-          // Buscamos el campo de fecha. Si tu base de datos usa 'createdAt', 'fecha_envio', etc.
-          // El backend suele devolver fechas en formato ISO: "2023-12-04T10:30:00.000Z"
-          const fechaRegistro = envio.fecha_envio || envio.createdAt || envio.created_at || '';
-          return fechaRegistro.toString().startsWith(hoyString);
+cargarEnviosDelDia() {
+    this.conectionService.getEnvios().subscribe({
+      next: (listaEnvios: any[]) => {
+        
+        // Obtenemos la fecha de HOY en formato local
+        const fechaHoyLocal = new Date().toLocaleDateString(); 
+
+        const enviosDeHoy = listaEnvios.filter((envio: any) => {
+          // Validamos que exista la fecha
+          const fechaString = envio.fecha_envio || envio.created_at || envio.fecha;
+          if (!fechaString) return false;
+
+          // Convertimos y comparamos
+          const fechaEnvioLocal = new Date(fechaString).toLocaleDateString();
+          return fechaEnvioLocal === fechaHoyLocal;
         });
 
         // Asignamos los datos
