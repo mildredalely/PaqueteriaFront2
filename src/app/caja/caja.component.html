@@ -1,18 +1,15 @@
 <div class="pantalla-ajustada">
 
-  <!-- Botón de regresar -->
   <ion-button fill="clear" class="btn-regresar" (click)="volver()">
     <ion-icon name="arrow-back-circle-outline"></ion-icon>
   </ion-button>
 
-  <!-- OLA SUPERIOR -->
   <div class="ola-superior">
     <svg viewBox="0 0 500 150" preserveAspectRatio="none">
       <path d="M-1.41,47.61 C149.99,150.00 271.52,-49.98 500.00,49.99 L500.00,0.00 L0.00,0.00 Z"></path>
     </svg>
   </div>
 
-  <!-- CARD PRINCIPAL -->
   <div class="reporte-card">
     <h2 class="titulo">CIERRE DE CAJA</h2>
     <p class="subtitulo">Validación del turno</p>
@@ -22,11 +19,9 @@
 
       <div class="turno-info">
 
-        <!-- Total esperado (Leído del localStorage) -->
         <p class="label">Total esperado (Sistema)</p>
         <p class="valor">{{ totalEsperado | currency }}</p>
 
-        <!-- Cantidad en caja (Input Usuario) -->
         <div class="fila-input">
           <label class="label">Efectivo en caja (Real)</label>
           <div class="input-wrapper">
@@ -35,26 +30,21 @@
           </div>
         </div>
 
-        <!-- AYUDA VISUAL: Muestra si falta o sobra dinero -->
         <div *ngIf="efectivoCaja !== null" class="mensaje-validacion">
-            <!-- Si la diferencia es casi 0 (margen de 1 peso), es verde. Si no, rojo -->
-            <p [style.color]="(diferencia > -1 && diferencia < 1) ? 'green' : '#e74c3c'">
-               {{ (diferencia > -1 && diferencia < 1) 
-                  ? '¡La caja cuadra perfecto!' 
-                  : 'Diferencia: ' + (diferencia | currency) 
-               }}
-            </p>
+           <p [style.color]="(diferencia > -1 && diferencia < 1) ? 'green' : '#e74c3c'">
+              {{ (diferencia > -1 && diferencia < 1) 
+                 ? '¡La caja cuadra perfecto!' 
+                 : 'Diferencia: ' + (diferencia | currency) 
+              }}
+           </p>
         </div>
 
         <br>
 
-        
-
-        <!-- Botón enviar -->
         <ion-button color="primary" shape="round" size="small" (click)="cerrarTurno()">
-  <ion-icon name="document-text-outline" slot="start"></ion-icon>
-  Validar y Descargar PDF
-</ion-button>
+          <ion-icon name="document-text-outline" slot="start"></ion-icon>
+          Validar y Previsualizar
+        </ion-button>
       </div>
     </div>
   </div>
